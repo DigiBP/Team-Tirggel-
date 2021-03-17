@@ -20,19 +20,19 @@
         <bpmn:flowNodeRef>Event_1vfyta1</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_03nzkgg</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_03gn8z5</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_0wu83zf</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0l26n19</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0ixeebu</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1af8wu3</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0ze15au</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0d0uev6</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1j5cke2</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_0wu83zf</bpmn:flowNodeRef>
       </bpmn:lane>
       <bpmn:lane id="Lane_111hoj3" name="Insurance expert">
         <bpmn:flowNodeRef>Gateway_0aflw8w</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_12gqmam</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0h1qpdc</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0c9fbyy</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_12gqmam</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:sequenceFlow id="Flow_122g67m" sourceRef="Event_11fpd34" targetRef="Activity_0wu83zf" />
@@ -97,10 +97,6 @@
     <bpmn:endEvent id="Event_03gn8z5" name="tbd">
       <bpmn:incoming>Flow_03utoqi</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:manualTask id="Activity_0wu83zf" name="Send application form">
-      <bpmn:incoming>Flow_122g67m</bpmn:incoming>
-      <bpmn:outgoing>Flow_0mh5zvf</bpmn:outgoing>
-    </bpmn:manualTask>
     <bpmn:manualTask id="Activity_0l26n19" name="Validate application form">
       <bpmn:incoming>Flow_0294n8g</bpmn:incoming>
       <bpmn:outgoing>Flow_0n9p58u</bpmn:outgoing>
@@ -115,13 +111,6 @@
       <bpmn:outgoing>Flow_0hqd456</bpmn:outgoing>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_0tus4jc">
         <bpmn:targetRef>DataObjectReference_0yquqej</bpmn:targetRef>
-      </bpmn:dataOutputAssociation>
-    </bpmn:manualTask>
-    <bpmn:manualTask id="Activity_12gqmam" name="Confirm acceptance in customer application">
-      <bpmn:incoming>Flow_04pa1ds</bpmn:incoming>
-      <bpmn:outgoing>Flow_065t2ep</bpmn:outgoing>
-      <bpmn:dataOutputAssociation id="DataOutputAssociation_1ktsv2x">
-        <bpmn:targetRef>DataObjectReference_0bwr4dt</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:manualTask>
     <bpmn:manualTask id="Activity_0h1qpdc" name="Define rejection reasons">
@@ -174,6 +163,17 @@
     <bpmn:dataObject id="DataObject_114u2qz" />
     <bpmn:dataObjectReference id="DataObjectReference_0yquqej" name="Customer application" dataObjectRef="DataObject_1h0jdzd" />
     <bpmn:dataObject id="DataObject_1h0jdzd" />
+    <bpmn:manualTask id="Activity_0wu83zf" name="Send application form">
+      <bpmn:incoming>Flow_122g67m</bpmn:incoming>
+      <bpmn:outgoing>Flow_0mh5zvf</bpmn:outgoing>
+    </bpmn:manualTask>
+    <bpmn:manualTask id="Activity_12gqmam" name="Confirm acceptance in customer application">
+      <bpmn:incoming>Flow_04pa1ds</bpmn:incoming>
+      <bpmn:outgoing>Flow_065t2ep</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_1ktsv2x">
+        <bpmn:targetRef>DataObjectReference_0bwr4dt</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:manualTask>
     <bpmn:textAnnotation id="TextAnnotation_1lyvuls">
       <bpmn:text>manually via internal post</bpmn:text>
     </bpmn:textAnnotation>
@@ -355,10 +355,10 @@
           <dc:Bounds x="2033" y="435" width="16" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_09leoue_di" bpmnElement="Activity_0wu83zf" bioc:stroke="black" bioc:fill="white">
+      <bpmndi:BPMNShape id="Activity_09leoue_di" bpmnElement="Activity_0wu83zf" bioc:stroke="rgb(251, 140, 0)" bioc:fill="rgb(255, 224, 178)">
         <dc:Bounds x="320" y="320" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_016d0rq_di" bpmnElement="Activity_0l26n19">
+      <bpmndi:BPMNShape id="Activity_016d0rq_di" bpmnElement="Activity_0l26n19" bioc:stroke="rgb(251, 140, 0)" bioc:fill="rgb(255, 224, 178)">
         <dc:Bounds x="600" y="320" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_13hlkei_di" bpmnElement="Activity_0ixeebu">
@@ -367,13 +367,13 @@
       <bpmndi:BPMNShape id="Activity_0wa25wj_di" bpmnElement="Activity_1af8wu3">
         <dc:Bounds x="1030" y="440" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_07x0pze_di" bpmnElement="Activity_12gqmam">
+      <bpmndi:BPMNShape id="Activity_07x0pze_di" bpmnElement="Activity_12gqmam" bioc:stroke="rgb(251, 140, 0)" bioc:fill="rgb(255, 224, 178)">
         <dc:Bounds x="1490" y="650" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_06e1loh_di" bpmnElement="Activity_0h1qpdc">
+      <bpmndi:BPMNShape id="Activity_06e1loh_di" bpmnElement="Activity_0h1qpdc" bioc:stroke="rgb(251, 140, 0)" bioc:fill="rgb(255, 224, 178)">
         <dc:Bounds x="1490" y="760" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1ec2k0x_di" bpmnElement="Activity_0ze15au">
+      <bpmndi:BPMNShape id="Activity_1ec2k0x_di" bpmnElement="Activity_0ze15au" bioc:stroke="rgb(251, 140, 0)" bioc:fill="rgb(255, 224, 178)">
         <dc:Bounds x="1590" y="370" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0j5wujy_di" bpmnElement="Activity_0d0uev6">
@@ -382,7 +382,7 @@
       <bpmndi:BPMNShape id="Activity_1rtllkr_di" bpmnElement="Activity_1j5cke2">
         <dc:Bounds x="2090" y="490" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_0raiulf_di" bpmnElement="Activity_0c9fbyy">
+      <bpmndi:BPMNShape id="Activity_0raiulf_di" bpmnElement="Activity_0c9fbyy" bioc:stroke="rgb(251, 140, 0)" bioc:fill="rgb(255, 224, 178)">
         <dc:Bounds x="1190" y="650" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataObjectReference_0bwr4dt_di" bpmnElement="DataObjectReference_0bwr4dt">
@@ -391,17 +391,17 @@
           <dc:Bounds x="1472" y="336" width="53" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_1lyvuls_di" bpmnElement="TextAnnotation_1lyvuls">
-        <dc:Bounds x="1130" y="360" width="99.99510188087774" height="40.75235109717868" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_1px8us9_di" bpmnElement="TextAnnotation_1px8us9">
-        <dc:Bounds x="960" y="240" width="99.99510188087774" height="29.976489028213166" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="DataObjectReference_0yquqej_di" bpmnElement="DataObjectReference_0yquqej">
         <dc:Bounds x="1052" y="685" width="36" height="50" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1044" y="742" width="53" height="27" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1lyvuls_di" bpmnElement="TextAnnotation_1lyvuls">
+        <dc:Bounds x="1130" y="360" width="99.99510188087774" height="40.75235109717868" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1px8us9_di" bpmnElement="TextAnnotation_1px8us9">
+        <dc:Bounds x="960" y="240" width="99.99510188087774" height="29.976489028213166" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Association_179w54m_di" bpmnElement="Association_179w54m">
         <di:waypoint x="1118" y="440" />
