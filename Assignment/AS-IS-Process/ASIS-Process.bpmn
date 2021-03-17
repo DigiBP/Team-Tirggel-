@@ -119,6 +119,10 @@
         <bpmn:sourceRef>DataObjectReference_06pwetn</bpmn:sourceRef>
         <bpmn:targetRef>Property_1wzzmkp</bpmn:targetRef>
       </bpmn:dataInputAssociation>
+      <bpmn:dataInputAssociation id="DataInputAssociation_1a1srzz">
+        <bpmn:sourceRef>DataStoreReference_0cgcehk</bpmn:sourceRef>
+        <bpmn:targetRef>Property_1wzzmkp</bpmn:targetRef>
+      </bpmn:dataInputAssociation>
     </bpmn:task>
     <bpmn:sequenceFlow id="Flow_1swbnex" sourceRef="Activity_0d0uev6" targetRef="Event_0pg257z" />
     <bpmn:intermediateCatchEvent id="Event_0pg257z" name="Received signed offer">
@@ -137,6 +141,7 @@
     <bpmn:endEvent id="Event_03gn8z5" name="tbd">
       <bpmn:incoming>Flow_03utoqi</bpmn:incoming>
     </bpmn:endEvent>
+    <bpmn:dataStoreReference id="DataStoreReference_0cgcehk" />
     <bpmn:textAnnotation id="TextAnnotation_1lyvuls">
       <bpmn:text>manually via internal post</bpmn:text>
     </bpmn:textAnnotation>
@@ -342,6 +347,9 @@
       <bpmndi:BPMNShape id="TextAnnotation_1px8us9_di" bpmnElement="TextAnnotation_1px8us9">
         <dc:Bounds x="960" y="240" width="99.99510188087774" height="29.976489028213166" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataStoreReference_0cgcehk_di" bpmnElement="DataStoreReference_0cgcehk">
+        <dc:Bounds x="1515" y="230" width="50" height="50" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Association_179w54m_di" bpmnElement="Association_179w54m">
         <di:waypoint x="1118" y="440" />
         <di:waypoint x="1155" y="401" />
@@ -376,6 +384,10 @@
       <bpmndi:BPMNEdge id="Flow_0jvpr1a_di" bpmnElement="Flow_0jvpr1a">
         <di:waypoint x="1950" y="131" />
         <di:waypoint x="1950" y="392" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_1a1srzz_di" bpmnElement="DataInputAssociation_1a1srzz">
+        <di:waypoint x="1565" y="268" />
+        <di:waypoint x="1780" y="383" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
