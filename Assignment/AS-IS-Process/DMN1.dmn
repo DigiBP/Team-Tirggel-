@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="Definitions_0ff3gl0" name="Acceptance Test" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.6.0">
+  <decision id="Decision_07f25qc" name="Check health status of customer">
+    <decisionTable id="DecisionTable_0s3c1u5">
+      <input id="Input_1" label="Age" biodi:width="192">
+        <inputExpression id="InputExpression_1" typeRef="double">
+          <text>age</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1gfq8ya" label="Smoker">
+        <inputExpression id="LiteralExpression_1k17157" typeRef="boolean">
+          <text>smoker</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1ccajyf" label="Hypertension">
+        <inputExpression id="LiteralExpression_06782pu" typeRef="boolean">
+          <text>Hypertension</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="Acceptance" name="acceptance" typeRef="string">
+        <outputValues id="UnaryTests_1afktam">
+          <text>"to be checked manually","YES","NO"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_11ihthw">
+        <inputEntry id="UnaryTests_01jkib4">
+          <text>&lt;30</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0fimimt">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0d22h57">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_00xinxn">
+          <text>"YES"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0sdke13">
+        <inputEntry id="UnaryTests_1r4bk9c">
+          <text>&lt;30</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0c5y20d">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_112lnmr">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_01idu0u">
+          <text>"NO"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1nxy0kj">
+        <inputEntry id="UnaryTests_09avgda">
+          <text>&lt;30</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_04d7b7t">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ly8ltr">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0e2qlyd">
+          <text>"to be checked manually"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1n068og">
+        <inputEntry id="UnaryTests_1fb5whi">
+          <text>&lt;30</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1juqvag">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0foiw11">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_19r5t77">
+          <text>"to be checked manually"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1yty6pk">
+        <inputEntry id="UnaryTests_1if78fk">
+          <text>&gt;=30</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1oi6h0g">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1r9wv7l">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0jijn38">
+          <text>"to be checked manually"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0yldyox">
+        <inputEntry id="UnaryTests_0gnkpp1">
+          <text>&gt;=30</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1j6bph2">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ugplkq">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1a3h7n4">
+          <text>"to be checked manually"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0g238rz">
+        <inputEntry id="UnaryTests_0lhba2g">
+          <text>&gt;=30</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0tp6zxh">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_10ku3v4">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_03yzcfy">
+          <text>"NO"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="Decision_07f25qc">
+        <dc:Bounds height="80" width="180" x="160" y="80" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

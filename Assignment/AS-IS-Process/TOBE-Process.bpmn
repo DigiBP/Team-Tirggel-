@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Definitions_1js5biu" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.6.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1js5biu" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.6.0">
   <bpmn:collaboration id="Collaboration_0aipv9p">
     <bpmn:participant id="Participant_05wbjh8" name="Customer aquisition process" processRef="Process_0olbl9l" />
     <bpmn:participant id="Participant_15dgydp" name="Customer" processRef="Process_0kcrbc4" />
@@ -21,6 +21,7 @@
         <bpmn:flowNodeRef>Activity_16bdu7k</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_0x4m378</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1no0kjv</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_0lmjwc6</bpmn:flowNodeRef>
       </bpmn:lane>
       <bpmn:lane id="Lane_16jggjx" name="Insurance expert">
         <bpmn:flowNodeRef>Gateway_0mtkqyr</bpmn:flowNodeRef>
@@ -66,9 +67,15 @@
       <bpmn:incoming>Flow_0tg5ey7</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_0tg5ey7" sourceRef="Activity_16bdu7k" targetRef="Event_1d174m2" />
-    <bpmn:sequenceFlow id="Flow_088lqkv" name="NO" sourceRef="Gateway_0ekii56" targetRef="Activity_16bdu7k" />
-    <bpmn:sequenceFlow id="Flow_1natbi2" name="YES" sourceRef="Gateway_0ekii56" targetRef="Activity_1vz7trc" />
-    <bpmn:sequenceFlow id="Flow_1g9yv0m" name="to be checked manually" sourceRef="Gateway_0ekii56" targetRef="Activity_1relfg7" />
+    <bpmn:sequenceFlow id="Flow_088lqkv" name="NO" sourceRef="Gateway_0ekii56" targetRef="Activity_16bdu7k">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${acceptance=="NO"}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1natbi2" name="YES" sourceRef="Gateway_0ekii56" targetRef="Activity_1vz7trc">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${acceptance=="YES"}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1g9yv0m" name="to be checked manually" sourceRef="Gateway_0ekii56" targetRef="Activity_1relfg7">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${acceptance=="to be checked manually"}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_0adgr9l" sourceRef="Activity_14zhgyx" targetRef="Gateway_0ekii56" />
     <bpmn:sequenceFlow id="Flow_0p84cw0" sourceRef="Activity_1relfg7" targetRef="Activity_1808bmv" />
     <bpmn:sequenceFlow id="Flow_0adcpbj" sourceRef="Activity_1808bmv" targetRef="Gateway_0mtkqyr" />
@@ -78,7 +85,15 @@
     <bpmn:sequenceFlow id="Flow_1y3cnnp" sourceRef="Activity_1xdbk45" targetRef="Activity_16bdu7k" />
     <bpmn:sequenceFlow id="Flow_11n45sw" name="rejected" sourceRef="Gateway_0mtkqyr" targetRef="Activity_1xdbk45" />
     <bpmn:sequenceFlow id="Flow_0lrk5xg" name="accepted" sourceRef="Gateway_0mtkqyr" targetRef="Activity_0tqcq5z" />
-    <bpmn:businessRuleTask id="Activity_14zhgyx" name="Check health status of customer">
+    <bpmn:businessRuleTask id="Activity_14zhgyx" name="Check health status of customer" camunda:resultVariable="acceptanceResult" camunda:decisionRef="Decision_07f25qc" camunda:mapDecisionResult="singleResult">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="Hypertension" />
+          <camunda:inputParameter name="Smoker" />
+          <camunda:inputParameter name="Age" />
+          <camunda:outputParameter name="acceptance">${acceptanceResult.acceptance}</camunda:outputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_0ilxhsj</bpmn:incoming>
       <bpmn:outgoing>Flow_0adgr9l</bpmn:outgoing>
       <bpmn:property id="Property_1ibhvq6" name="__targetRef_placeholder" />
@@ -107,6 +122,7 @@
     <bpmn:sequenceFlow id="Flow_05ugq8t" sourceRef="Event_0x4m378" targetRef="Activity_1no0kjv" />
     <bpmn:startEvent id="Event_0x4m378">
       <bpmn:outgoing>Flow_05ugq8t</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0fkh4rn</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:receiveTask id="Activity_1no0kjv" name="Recieve validated application">
       <bpmn:incoming>Flow_05ugq8t</bpmn:incoming>
@@ -114,6 +130,10 @@
     </bpmn:receiveTask>
     <bpmn:sequenceFlow id="Flow_0ilxhsj" sourceRef="Activity_1no0kjv" targetRef="Activity_14zhgyx" />
     <bpmn:dataStoreReference id="DataStoreReference_0ksm1wh" name="Customer Database" />
+    <bpmn:task id="Activity_0lmjwc6">
+      <bpmn:incoming>Flow_0fkh4rn</bpmn:incoming>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0fkh4rn" sourceRef="Event_0x4m378" targetRef="Activity_0lmjwc6" />
     <bpmn:textAnnotation id="TextAnnotation_0iao0qn">
       <bpmn:text>Validation happen before during the fill in</bpmn:text>
     </bpmn:textAnnotation>
@@ -131,9 +151,14 @@
       <bpmndi:BPMNShape id="Lane_0aod88s_di" bpmnElement="Lane_0aod88s" isHorizontal="true">
         <dc:Bounds x="184" y="275" width="1656" height="495" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_0iao0qn_di" bpmnElement="TextAnnotation_0iao0qn">
-        <dc:Bounds x="370" y="320" width="99.99156545209178" height="52.631578947368425" />
-      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0ilxhsj_di" bpmnElement="Flow_0ilxhsj">
+        <di:waypoint x="380" y="485" />
+        <di:waypoint x="430" y="485" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_05ugq8t_di" bpmnElement="Flow_05ugq8t">
+        <di:waypoint x="238" y="485" />
+        <di:waypoint x="280" y="485" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0lrk5xg_di" bpmnElement="Flow_0lrk5xg">
         <di:waypoint x="1035" y="890" />
         <di:waypoint x="1150" y="890" />
@@ -208,13 +233,11 @@
         <di:waypoint x="1650" y="485" />
         <di:waypoint x="1732" y="485" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_05ugq8t_di" bpmnElement="Flow_05ugq8t">
+      <bpmndi:BPMNEdge id="Flow_0fkh4rn_di" bpmnElement="Flow_0fkh4rn">
         <di:waypoint x="238" y="485" />
-        <di:waypoint x="280" y="485" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0ilxhsj_di" bpmnElement="Flow_0ilxhsj">
-        <di:waypoint x="380" y="485" />
-        <di:waypoint x="430" y="485" />
+        <di:waypoint x="260" y="485" />
+        <di:waypoint x="260" y="600" />
+        <di:waypoint x="280" y="600" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Gateway_0ekii56_di" bpmnElement="Gateway_0ekii56" isMarkerVisible="true">
         <dc:Bounds x="585" y="460" width="50" height="50" />
@@ -278,6 +301,12 @@
         <bpmndi:BPMNLabel>
           <dc:Bounds x="384" y="676" width="50" height="27" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_0iao0qn_di" bpmnElement="TextAnnotation_0iao0qn">
+        <dc:Bounds x="370" y="320" width="99.99156545209178" height="52.631578947368425" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0lmjwc6_di" bpmnElement="Activity_0lmjwc6">
+        <dc:Bounds x="280" y="560" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Association_03cdsa7_di" bpmnElement="Association_03cdsa7">
         <di:waypoint x="354" y="445" />
