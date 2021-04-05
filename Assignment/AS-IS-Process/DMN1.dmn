@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="Definitions_0ff3gl0" name="Acceptance Test" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.6.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_0ff3gl0" name="Acceptance Test" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.6.0">
   <decision id="Decision_07f25qc" name="Check health status of customer">
-    <decisionTable id="DecisionTable_0s3c1u5">
+    <decisionTable id="DecisionTable_0s3c1u5" hitPolicy="COLLECT" aggregation="SUM">
       <input id="Input_1" label="Age" biodi:width="192">
-        <inputExpression id="InputExpression_1" typeRef="double">
+        <inputExpression id="InputExpression_1" typeRef="long">
           <text>age</text>
         </inputExpression>
       </input>
@@ -12,112 +12,321 @@
           <text>smoker</text>
         </inputExpression>
       </input>
-      <input id="InputClause_1ccajyf" label="Hypertension">
-        <inputExpression id="LiteralExpression_06782pu" typeRef="boolean">
-          <text>Hypertension</text>
+      <input id="InputClause_1ccajyf" label="BMI">
+        <inputExpression id="LiteralExpression_06782pu" typeRef="double">
+          <text>BMI</text>
         </inputExpression>
       </input>
-      <output id="Output_1" label="Acceptance" name="acceptance" typeRef="string">
-        <outputValues id="UnaryTests_1afktam">
-          <text>"to be checked manually","YES","NO"</text>
-        </outputValues>
-      </output>
+      <input id="InputClause_16r93u3" label="Diabetes">
+        <inputExpression id="LiteralExpression_1mjxwsm" typeRef="boolean">
+          <text>diabetes</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1ocmfs3" label="Cancer">
+        <inputExpression id="LiteralExpression_03ixu5g" typeRef="boolean">
+          <text>cancer</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="Acceptance Points" name="acceptancePoints" typeRef="double" />
       <rule id="DecisionRule_11ihthw">
         <inputEntry id="UnaryTests_01jkib4">
           <text>&lt;30</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0fimimt">
-          <text>false</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0d22h57">
-          <text>false</text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_00xinxn">
-          <text>"YES"</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_0sdke13">
-        <inputEntry id="UnaryTests_1r4bk9c">
-          <text>&lt;30</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0c5y20d">
-          <text>true</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_112lnmr">
-          <text>true</text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_01idu0u">
-          <text>"NO"</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_1nxy0kj">
-        <inputEntry id="UnaryTests_09avgda">
-          <text>&lt;30</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_04d7b7t">
-          <text>true</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0ly8ltr">
-          <text>false</text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_0e2qlyd">
-          <text>"to be checked manually"</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_1n068og">
-        <inputEntry id="UnaryTests_1fb5whi">
-          <text>&lt;30</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1juqvag">
-          <text>false</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0foiw11">
-          <text>true</text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_19r5t77">
-          <text>"to be checked manually"</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_1yty6pk">
-        <inputEntry id="UnaryTests_1if78fk">
-          <text>&gt;=30</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1oi6h0g">
-          <text>false</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1r9wv7l">
-          <text>false</text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_0jijn38">
-          <text>"to be checked manually"</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_0yldyox">
-        <inputEntry id="UnaryTests_0gnkpp1">
-          <text>&gt;=30</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1j6bph2">
-          <text>true</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_1ugplkq">
-          <text>false</text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_1a3h7n4">
-          <text>"to be checked manually"</text>
-        </outputEntry>
-      </rule>
-      <rule id="DecisionRule_0g238rz">
-        <inputEntry id="UnaryTests_0lhba2g">
-          <text>&gt;=30</text>
-        </inputEntry>
-        <inputEntry id="UnaryTests_0tp6zxh">
           <text></text>
         </inputEntry>
-        <inputEntry id="UnaryTests_10ku3v4">
+        <inputEntry id="UnaryTests_0d22h57">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1p5eoop">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_05h7475">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_00xinxn">
+          <text>10</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0cstrx9">
+        <inputEntry id="UnaryTests_192x14s">
+          <text>[30..60[</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1kbxl82">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_10yad4f">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0u7imam">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1542j4p">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1225jzv">
+          <text>50</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1np3ko7">
+        <inputEntry id="UnaryTests_1pup4ha">
+          <text>&gt;=60</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1jbytkq">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1r7kanz">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1s08735">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1yholb5">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_14m0bc8">
+          <text>100</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_12cil36">
+        <inputEntry id="UnaryTests_0rnsmfg">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_119tam2">
           <text>true</text>
         </inputEntry>
-        <outputEntry id="LiteralExpression_03yzcfy">
-          <text>"NO"</text>
+        <inputEntry id="UnaryTests_16v286e">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0anag90">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0jgf36q">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_05keqzk">
+          <text>50</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ql9qob">
+        <inputEntry id="UnaryTests_107z1ma">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_03i58dg">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1duo1n2">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1rcjokh">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_16zn0lo">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0m0x4fe">
+          <text>10</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0hp1fiw">
+        <inputEntry id="UnaryTests_1tcpz6a">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0hzy2af">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0sr60u9">
+          <text>&lt;18.5</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1kviadw">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0eqgkkb">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_15ivsg0">
+          <text>75</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0rvmcpi">
+        <inputEntry id="UnaryTests_0uqwdsq">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ud90he">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0v5ebp5">
+          <text>[18.5..25[</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0arj3y7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06ebfir">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1m9rhj2">
+          <text>10</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1rxxoee">
+        <inputEntry id="UnaryTests_0xql5nr">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1hvmpca">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1oz77c3">
+          <text>[25..30]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ek3mnw">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ocura2">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1awcczt">
+          <text>50</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1tchxfy">
+        <inputEntry id="UnaryTests_0j93q7j">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ovm589">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0k5qw8u">
+          <text>&gt;30</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_10tthon">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0kua9zh">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0pzzcll">
+          <text>75</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0t8tcc4">
+        <inputEntry id="UnaryTests_17xnmeh">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0c9uqoh">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1bikuy1">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_08kp7di">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1sgiggm">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_161743a">
+          <text>150</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1x1vni0">
+        <inputEntry id="UnaryTests_1gq7xpq">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1rhq01v">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_03ivxss">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_16fqdto">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0krrpf5">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0emprjo">
+          <text>10</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_006my4u">
+        <inputEntry id="UnaryTests_1jy4i0i">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0dxdl1t">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1pnpct9">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0xlg1on">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1gc1aeu">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0biap2r">
+          <text>150</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1kc27my">
+        <inputEntry id="UnaryTests_06rt5c3">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1qtff5m">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0i6nf77">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0lf19az">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ujspk5">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_194ib1v">
+          <text>10</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="Decision_13f8ut5" name="Acceptance Points decision">
+    <informationRequirement id="InformationRequirement_0a4ii5l">
+      <requiredDecision href="#Decision_07f25qc" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_0arnhth">
+      <input id="InputClause_1400bc1" label="Acceptance Points">
+        <inputExpression id="LiteralExpression_1c6ur41" typeRef="integer">
+          <text>acceptancePoints</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_0rfxf4r" label="Acceptance" name="acceptance" typeRef="string">
+        <outputValues id="UnaryTests_0h9f9fe">
+          <text>"Yes","No","to be checked manually"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_1mc1xaq">
+        <inputEntry id="UnaryTests_0mchys4">
+          <text>&lt;= 75</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0e0balp">
+          <text>"Yes"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_07odhci">
+        <inputEntry id="UnaryTests_1is8jft">
+          <text>]75..150[</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_12lvy49">
+          <text>"to be checked manually"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_13dwqwf">
+        <inputEntry id="UnaryTests_1pxjqui">
+          <text>&gt;150</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_09ad859">
+          <text>"No"</text>
         </outputEntry>
       </rule>
     </decisionTable>
@@ -125,7 +334,15 @@
   <dmndi:DMNDI>
     <dmndi:DMNDiagram>
       <dmndi:DMNShape dmnElementRef="Decision_07f25qc">
-        <dc:Bounds height="80" width="180" x="160" y="80" />
+        <dc:Bounds height="80" width="180" x="440" y="440" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_17zxz03" dmnElementRef="InformationRequirement_0a4ii5l">
+        <di:waypoint x="530" y="440" />
+        <di:waypoint x="530" y="360" />
+        <di:waypoint x="530" y="340" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_125i668" dmnElementRef="Decision_13f8ut5">
+        <dc:Bounds height="80" width="180" x="440" y="260" />
       </dmndi:DMNShape>
     </dmndi:DMNDiagram>
   </dmndi:DMNDI>
