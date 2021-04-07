@@ -4,7 +4,6 @@
     <bpmn:participant id="Participant_05wbjh8" name="Customer aquisition process" processRef="Process_0olbl9l" />
     <bpmn:participant id="Participant_15dgydp" name="Customer" processRef="Process_0kcrbc4" />
     <bpmn:messageFlow id="Flow_18bevsx" sourceRef="Activity_1vz7trc" targetRef="Participant_15dgydp" />
-    <bpmn:messageFlow id="Flow_0qew516" sourceRef="Participant_15dgydp" targetRef="Event_01jdp8w" />
     <bpmn:messageFlow id="Flow_0wlqgff" sourceRef="Activity_16bdu7k" targetRef="Participant_15dgydp" />
     <bpmn:messageFlow id="Flow_1406fvk" sourceRef="Participant_15dgydp" targetRef="Activity_1no0kjv" />
   </bpmn:collaboration>
@@ -13,7 +12,6 @@
       <bpmn:lane id="Lane_0aod88s" name="Web Page">
         <bpmn:flowNodeRef>Gateway_0ekii56</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_1relfg7</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Event_01jdp8w</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_1d174m2</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_14zhgyx</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_0ixqqxf</bpmn:flowNodeRef>
@@ -52,11 +50,6 @@
       <bpmn:incoming>Flow_11n45sw</bpmn:incoming>
       <bpmn:outgoing>Flow_1y3cnnp</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:intermediateCatchEvent id="Event_01jdp8w" name="Signed contract received">
-      <bpmn:incoming>Flow_03xlvao</bpmn:incoming>
-      <bpmn:outgoing>Flow_1jpyw0j</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_1ikjimu" />
-    </bpmn:intermediateCatchEvent>
     <bpmn:endEvent id="Event_1d174m2" name="Insurance rejected">
       <bpmn:incoming>Flow_0tg5ey7</bpmn:incoming>
     </bpmn:endEvent>
@@ -73,13 +66,15 @@
     <bpmn:sequenceFlow id="Flow_0adgr9l" sourceRef="Activity_14zhgyx" targetRef="Gateway_0ekii56" />
     <bpmn:sequenceFlow id="Flow_0p84cw0" sourceRef="Activity_1relfg7" targetRef="Activity_1808bmv" />
     <bpmn:sequenceFlow id="Flow_0adcpbj" sourceRef="Activity_1808bmv" targetRef="Gateway_0mtkqyr" />
-    <bpmn:sequenceFlow id="Flow_1jpyw0j" sourceRef="Event_01jdp8w" targetRef="Event_0ixqqxf" />
-    <bpmn:sequenceFlow id="Flow_03xlvao" sourceRef="Activity_1vz7trc" targetRef="Event_01jdp8w" />
     <bpmn:sequenceFlow id="Flow_00fofmc" sourceRef="Activity_0tqcq5z" targetRef="Activity_1vz7trc" />
     <bpmn:sequenceFlow id="Flow_1y3cnnp" sourceRef="Activity_1xdbk45" targetRef="Activity_16bdu7k" />
-    <bpmn:sequenceFlow id="Flow_11n45sw" name="rejected" sourceRef="Gateway_0mtkqyr" targetRef="Activity_1xdbk45" />
-    <bpmn:sequenceFlow id="Flow_0lrk5xg" name="accepted" sourceRef="Gateway_0mtkqyr" targetRef="Activity_0tqcq5z" />
-    <bpmn:businessRuleTask id="Activity_14zhgyx" name="Check health status of customer" camunda:resultVariable="acceptance" camunda:decisionRef="Decision_13f8ut5" camunda:mapDecisionResult="singleResult">
+    <bpmn:sequenceFlow id="Flow_11n45sw" name="rejected" sourceRef="Gateway_0mtkqyr" targetRef="Activity_1xdbk45">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">rejected</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0lrk5xg" name="accepted" sourceRef="Gateway_0mtkqyr" targetRef="Activity_0tqcq5z">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">accepted</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:businessRuleTask id="Activity_14zhgyx" name="Check health status of customer" camunda:resultVariable="acceptanceResult" camunda:decisionRef="Decision_13f8ut5" camunda:mapDecisionResult="singleResult">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="cancer">
@@ -97,7 +92,7 @@
           <camunda:inputParameter name="age">
             <camunda:script scriptFormat="JavaScript">age</camunda:script>
           </camunda:inputParameter>
-          <camunda:outputParameter name="acceptance">${scoringResult.acceptance}</camunda:outputParameter>
+          <camunda:outputParameter name="acceptance">${acceptanceResult.acceptance}</camunda:outputParameter>
         </camunda:inputOutput>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0ilxhsj</bpmn:incoming>
@@ -109,7 +104,7 @@
       </bpmn:dataInputAssociation>
     </bpmn:businessRuleTask>
     <bpmn:endEvent id="Event_0ixqqxf" name="Insurance concluded">
-      <bpmn:incoming>Flow_1jpyw0j</bpmn:incoming>
+      <bpmn:incoming>Flow_04n4cnk</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:userTask id="Activity_1808bmv" name="Assess application">
       <bpmn:incoming>Flow_0p84cw0</bpmn:incoming>
@@ -142,13 +137,14 @@
     <bpmn:userTask id="Activity_1vz7trc" name="Send contract / confirmation">
       <bpmn:incoming>Flow_1natbi2</bpmn:incoming>
       <bpmn:incoming>Flow_00fofmc</bpmn:incoming>
-      <bpmn:outgoing>Flow_03xlvao</bpmn:outgoing>
+      <bpmn:outgoing>Flow_04n4cnk</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:userTask id="Activity_16bdu7k" name="Send rejection to customer">
       <bpmn:incoming>Flow_088lqkv</bpmn:incoming>
       <bpmn:incoming>Flow_1y3cnnp</bpmn:incoming>
       <bpmn:outgoing>Flow_0tg5ey7</bpmn:outgoing>
     </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_04n4cnk" sourceRef="Activity_1vz7trc" targetRef="Event_0ixqqxf" />
     <bpmn:textAnnotation id="TextAnnotation_0iao0qn">
       <bpmn:text>Validation happen before during the fill in</bpmn:text>
     </bpmn:textAnnotation>
@@ -178,7 +174,7 @@
         <di:waypoint x="1035" y="890" />
         <di:waypoint x="1150" y="890" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1071" y="872" width="45" height="14" />
+          <dc:Bounds x="1047" y="872" width="45" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_11n45sw_di" bpmnElement="Flow_11n45sw">
@@ -198,14 +194,6 @@
       <bpmndi:BPMNEdge id="Flow_00fofmc_di" bpmnElement="Flow_00fofmc">
         <di:waypoint x="1200" y="850" />
         <di:waypoint x="1200" y="390" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_03xlvao_di" bpmnElement="Flow_03xlvao">
-        <di:waypoint x="1250" y="350" />
-        <di:waypoint x="1312" y="350" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1jpyw0j_di" bpmnElement="Flow_1jpyw0j">
-        <di:waypoint x="1348" y="350" />
-        <di:waypoint x="1402" y="350" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0adcpbj_di" bpmnElement="Flow_0adcpbj">
         <di:waypoint x="940" y="890" />
@@ -248,6 +236,10 @@
         <di:waypoint x="1650" y="485" />
         <di:waypoint x="1732" y="485" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_04n4cnk_di" bpmnElement="Flow_04n4cnk">
+        <di:waypoint x="1250" y="350" />
+        <di:waypoint x="1402" y="350" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Gateway_0ekii56_di" bpmnElement="Gateway_0ekii56" isMarkerVisible="true">
         <dc:Bounds x="585" y="460" width="50" height="50" />
         <bpmndi:BPMNLabel>
@@ -268,12 +260,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_137qtmi_di" bpmnElement="Activity_1xdbk45" bioc:stroke="black" bioc:fill="white">
         <dc:Bounds x="1150" y="990" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_01jdp8w_di" bpmnElement="Event_01jdp8w">
-        <dc:Bounds x="1312" y="332" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1292" y="375" width="78" height="27" />
-        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1d174m2_di" bpmnElement="Event_1d174m2">
         <dc:Bounds x="1732" y="467" width="36" height="36" />
@@ -335,10 +321,6 @@
       <bpmndi:BPMNEdge id="Flow_18bevsx_di" bpmnElement="Flow_18bevsx">
         <di:waypoint x="1198" y="310" />
         <di:waypoint x="1198" y="158" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0qew516_di" bpmnElement="Flow_0qew516">
-        <di:waypoint x="1330" y="158" />
-        <di:waypoint x="1330" y="332" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0wlqgff_di" bpmnElement="Flow_0wlqgff">
         <di:waypoint x="1596" y="445" />
