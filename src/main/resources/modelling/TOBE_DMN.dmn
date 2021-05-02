@@ -8,7 +8,7 @@
         </inputExpression>
       </input>
       <input id="InputClause_1gfq8ya" label="Smoker">
-        <inputExpression id="LiteralExpression_1k17157" typeRef="boolean">
+        <inputExpression id="LiteralExpression_1k17157" typeRef="string">
           <text>smoker</text>
         </inputExpression>
       </input>
@@ -17,13 +17,13 @@
           <text>BMI</text>
         </inputExpression>
       </input>
-      <input id="InputClause_16r93u3" label="Diabetes">
-        <inputExpression id="LiteralExpression_1mjxwsm" typeRef="boolean">
+      <input id="InputClause_16r93u3" label="Diabetes" biodi:width="192">
+        <inputExpression id="LiteralExpression_1mjxwsm" typeRef="string">
           <text>diabetes</text>
         </inputExpression>
       </input>
       <input id="InputClause_1ocmfs3" label="Cancer">
-        <inputExpression id="LiteralExpression_03ixu5g" typeRef="boolean">
+        <inputExpression id="LiteralExpression_03ixu5g" typeRef="string">
           <text>cancer</text>
         </inputExpression>
       </input>
@@ -93,7 +93,7 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_119tam2">
-          <text>true</text>
+          <text>"Yes"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_16v286e">
           <text></text>
@@ -113,7 +113,7 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_03i58dg">
-          <text>false</text>
+          <text>"No"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1duo1n2">
           <text></text>
@@ -219,7 +219,7 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_08kp7di">
-          <text>true</text>
+          <text>"Yes"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_1sgiggm">
           <text></text>
@@ -239,7 +239,7 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_16fqdto">
-          <text>false</text>
+          <text>"No"</text>
         </inputEntry>
         <inputEntry id="UnaryTests_0krrpf5">
           <text></text>
@@ -262,7 +262,7 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_1gc1aeu">
-          <text>true</text>
+          <text>"Yes"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0biap2r">
           <text>150</text>
@@ -282,7 +282,7 @@
           <text></text>
         </inputEntry>
         <inputEntry id="UnaryTests_0ujspk5">
-          <text>false</text>
+          <text>"No"</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_194ib1v">
           <text>10</text>
@@ -305,20 +305,33 @@
           <text>"Yes","No","to be checked manually"</text>
         </outputValues>
       </output>
+      <output id="OutputClause_12rb8ul" label="Decisiontype" name="decisionType" typeRef="string">
+        <outputValues id="UnaryTests_189txu1">
+          <text>"automatic","manually"</text>
+        </outputValues>
+      </output>
       <rule id="DecisionRule_1mc1xaq">
+        <description></description>
         <inputEntry id="UnaryTests_0mchys4">
           <text>&lt;= 75</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0e0balp">
           <text>"Yes"</text>
         </outputEntry>
+        <outputEntry id="LiteralExpression_0kpd57m">
+          <text>"automatic"</text>
+        </outputEntry>
       </rule>
       <rule id="DecisionRule_07odhci">
+        <description></description>
         <inputEntry id="UnaryTests_1is8jft">
           <text>]75..150[</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_12lvy49">
           <text>"to be checked manually"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1qm9oeh">
+          <text>"manually"</text>
         </outputEntry>
       </rule>
       <rule id="DecisionRule_13dwqwf">
@@ -327,6 +340,9 @@
         </inputEntry>
         <outputEntry id="LiteralExpression_09ad859">
           <text>"No"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1mplc4j">
+          <text>"automatic"</text>
         </outputEntry>
       </rule>
     </decisionTable>
