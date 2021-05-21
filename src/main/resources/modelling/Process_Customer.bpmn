@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1dx29zk" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.6.0">
+  <bpmn:process id="Process_tobe_GF_INT_Customer" name="Process_tobe_GF_INT_Customer" isExecutable="true">
+    <bpmn:sequenceFlow id="Flow_1nfw3kd" sourceRef="StartEvent_1" targetRef="Activity_1s54b43" />
+    <bpmn:sequenceFlow id="Flow_0z31dai" sourceRef="Activity_1s54b43" targetRef="Activity_1m2927x" />
+    <bpmn:userTask id="Activity_1s54b43" name="Deicision if offer acceptable">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="acceptancecustomer" type="boolean" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1nfw3kd</bpmn:incoming>
+      <bpmn:outgoing>Flow_0z31dai</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="Event_0e6l4ox">
+      <bpmn:incoming>Flow_0lic43h</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_1nfw3kd</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0191rv5" messageRef="Message_1gxlt8q" />
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0lic43h" sourceRef="Activity_1m2927x" targetRef="Event_0e6l4ox" />
+    <bpmn:sendTask id="Activity_1m2927x" name="Send decision" camunda:expression="${runtimeService.createMessageCorrelation(&#34;ReceiveAnswerCustomer&#34;).processInstanceBusinessKey(execution.getBusinessKey()).setVariables(execution.getVariables()).correlate()}">
+      <bpmn:incoming>Flow_0z31dai</bpmn:incoming>
+      <bpmn:outgoing>Flow_0lic43h</bpmn:outgoing>
+    </bpmn:sendTask>
+  </bpmn:process>
+  <bpmn:message id="Message_1gxlt8q" name="Offertocustomer" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_tobe_GF_INT_Customer">
+      <bpmndi:BPMNEdge id="Flow_0lic43h_di" bpmnElement="Flow_0lic43h">
+        <di:waypoint x="590" y="117" />
+        <di:waypoint x="722" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0z31dai_di" bpmnElement="Flow_0z31dai">
+        <di:waypoint x="400" y="117" />
+        <di:waypoint x="490" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1nfw3kd_di" bpmnElement="Flow_1nfw3kd">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="300" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Activity_1shvhcp_di" bpmnElement="Activity_1s54b43">
+        <dc:Bounds x="300" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0e6l4ox_di" bpmnElement="Event_0e6l4ox">
+        <dc:Bounds x="722" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0q6mrw3_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0llbhpp_di" bpmnElement="Activity_1m2927x">
+        <dc:Bounds x="490" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
