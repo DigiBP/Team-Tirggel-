@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_0ff3gl0" name="Acceptance Test" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.6.0">
   <decision id="Decision_07f25qc" name="Check health status of customer">
+    <informationRequirement id="InformationRequirement_1h6cor5">
+      <requiredInput href="#InputData_1yrxr69" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_0uacq44">
+      <requiredInput href="#InputData_0z4fccm" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_1ll0avb">
+      <requiredInput href="#InputData_0nlbvat" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_1veuz16">
+      <requiredInput href="#InputData_05b9acn" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_0cu816m">
+      <requiredInput href="#InputData_0kiy1py" />
+    </informationRequirement>
+    <authorityRequirement id="AuthorityRequirement_0buun8a">
+      <requiredAuthority href="#KnowledgeSource_13j3ceb" />
+    </authorityRequirement>
     <decisionTable id="DecisionTable_0s3c1u5" hitPolicy="COLLECT" aggregation="SUM">
       <input id="Input_1" label="Age" biodi:width="192" camunda:inputVariable="age">
         <inputExpression id="InputExpression_1" typeRef="long">
@@ -294,6 +312,9 @@
     <informationRequirement id="InformationRequirement_0a4ii5l">
       <requiredDecision href="#Decision_07f25qc" />
     </informationRequirement>
+    <knowledgeRequirement id="KnowledgeRequirement_070rwv8">
+      <requiredKnowledge href="#BusinessKnowledgeModel_1xnkplf" />
+    </knowledgeRequirement>
     <decisionTable id="DecisionTable_0arnhth">
       <input id="InputClause_1400bc1" label="Acceptance Points">
         <inputExpression id="LiteralExpression_1c6ur41" typeRef="integer">
@@ -302,7 +323,7 @@
       </input>
       <output id="OutputClause_0rfxf4r" label="Acceptance" name="acceptance" typeRef="string">
         <outputValues id="UnaryTests_0h9f9fe">
-          <text>"Yes","No","to be checked manually"</text>
+          <text>"to be checked manually","accepted","rejected"</text>
         </outputValues>
       </output>
       <output id="OutputClause_12rb8ul" label="Decisiontype" name="decisionType" typeRef="string">
@@ -316,7 +337,7 @@
           <text>&lt;= 75</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0e0balp">
-          <text>"Yes"</text>
+          <text>"accepted"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0kpd57m">
           <text>"automatic"</text>
@@ -339,7 +360,7 @@
           <text>&gt;150</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_09ad859">
-          <text>"No"</text>
+          <text>"rejected"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_1mplc4j">
           <text>"automatic"</text>
@@ -347,19 +368,80 @@
       </rule>
     </decisionTable>
   </decision>
+  <businessKnowledgeModel id="BusinessKnowledgeModel_1xnkplf" name="Policy for acceptance/ rejection calculation" />
+  <knowledgeSource id="KnowledgeSource_13j3ceb" name="Medical Knowledge" />
+  <inputData id="InputData_1yrxr69" name="Age" />
+  <inputData id="InputData_0z4fccm" name="Height / Weight" />
+  <inputData id="InputData_0nlbvat" name="Diabetes" />
+  <inputData id="InputData_05b9acn" name="Smoker" />
+  <inputData id="InputData_0kiy1py" name="Cancer" />
   <dmndi:DMNDI>
     <dmndi:DMNDiagram>
       <dmndi:DMNShape dmnElementRef="Decision_07f25qc">
-        <dc:Bounds height="80" width="180" x="440" y="440" />
+        <dc:Bounds height="80" width="180" x="440" y="260" />
       </dmndi:DMNShape>
       <dmndi:DMNEdge id="DMNEdge_17zxz03" dmnElementRef="InformationRequirement_0a4ii5l">
-        <di:waypoint x="530" y="440" />
+        <di:waypoint x="530" y="260" />
+        <di:waypoint x="530" y="180" />
+        <di:waypoint x="530" y="160" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_125i668" dmnElementRef="Decision_13f8ut5">
+        <dc:Bounds height="80" width="180" x="440" y="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_1ogy9gk" dmnElementRef="BusinessKnowledgeModel_1xnkplf">
+        <dc:Bounds height="46" width="135" x="703" y="97" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_1jhahfk" dmnElementRef="KnowledgeRequirement_070rwv8">
+        <di:waypoint x="703" y="120" />
+        <di:waypoint x="620" y="120" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_16vrcyw" dmnElementRef="KnowledgeSource_13j3ceb">
+        <dc:Bounds height="63" width="100" x="220" y="269" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_0cj2gxn" dmnElementRef="AuthorityRequirement_0buun8a">
+        <di:waypoint x="320" y="301" />
+        <di:waypoint x="440" y="300" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_1s5prka" dmnElementRef="InputData_1yrxr69">
+        <dc:Bounds height="45" width="125" x="167" y="478" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_00carb2" dmnElementRef="InformationRequirement_1h6cor5">
+        <di:waypoint x="230" y="478" />
+        <di:waypoint x="470" y="360" />
+        <di:waypoint x="470" y="340" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_0ctchis" dmnElementRef="InputData_0z4fccm">
+        <dc:Bounds height="45" width="125" x="317" y="479" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_117x3wt" dmnElementRef="InformationRequirement_0uacq44">
+        <di:waypoint x="380" y="479" />
+        <di:waypoint x="500" y="360" />
+        <di:waypoint x="500" y="340" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_0pp06y6" dmnElementRef="InputData_0nlbvat">
+        <dc:Bounds height="45" width="125" x="467" y="479" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_07aski6" dmnElementRef="InformationRequirement_1ll0avb">
+        <di:waypoint x="530" y="479" />
         <di:waypoint x="530" y="360" />
         <di:waypoint x="530" y="340" />
       </dmndi:DMNEdge>
-      <dmndi:DMNShape id="DMNShape_125i668" dmnElementRef="Decision_13f8ut5">
-        <dc:Bounds height="80" width="180" x="440" y="260" />
+      <dmndi:DMNShape id="DMNShape_0fe1u76" dmnElementRef="InputData_05b9acn">
+        <dc:Bounds height="45" width="125" x="607" y="479" />
       </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_1yuy7s2" dmnElementRef="InformationRequirement_1veuz16">
+        <di:waypoint x="670" y="479" />
+        <di:waypoint x="560" y="360" />
+        <di:waypoint x="560" y="340" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_1k1vg8q" dmnElementRef="InputData_0kiy1py">
+        <dc:Bounds height="45" width="125" x="747" y="479" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_1szayxl" dmnElementRef="InformationRequirement_0cu816m">
+        <di:waypoint x="810" y="479" />
+        <di:waypoint x="590" y="360" />
+        <di:waypoint x="590" y="340" />
+      </dmndi:DMNEdge>
     </dmndi:DMNDiagram>
   </dmndi:DMNDI>
 </definitions>
