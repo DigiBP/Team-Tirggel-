@@ -1,0 +1,2650 @@
+{
+    "name": "Send answer to customer",
+    "flow": [
+        {
+            "id": 1,
+            "module": "gateway:CustomWebHook",
+            "version": 1,
+            "parameters": {
+                "hook": 789938,
+                "maxResults": 2
+            },
+            "mapper": {},
+            "metadata": {
+                "designer": {
+                    "x": -2445,
+                    "y": -94
+                },
+                "restore": {
+                    "hook": {
+                        "label": "send form"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "hook",
+                        "type": "hook",
+                        "label": "Webhook",
+                        "required": true
+                    },
+                    {
+                        "name": "maxResults",
+                        "type": "number",
+                        "label": "Maximum number of results"
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "customerID",
+                        "type": "text"
+                    },
+                    {
+                        "name": "decisionType",
+                        "type": "text"
+                    },
+                    {
+                        "name": "decision",
+                        "type": "text"
+                    },
+                    {
+                        "name": "reason",
+                        "type": "text"
+                    },
+                    {
+                        "name": "acceptancecustomer",
+                        "type": "text"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 28,
+            "module": "builtin:BasicRouter",
+            "version": 1,
+            "mapper": null,
+            "metadata": {
+                "designer": {
+                    "x": -1995,
+                    "y": -90
+                }
+            },
+            "routes": [
+                {
+                    "flow": [
+                        {
+                            "id": 11,
+                            "module": "datastore:UpdateRecord",
+                            "version": 1,
+                            "parameters": {
+                                "datastore": 35451
+                            },
+                            "filter": {
+                                "name": "First Decision",
+                                "conditions": [
+                                    [
+                                        {
+                                            "a": "{{1.acceptancecustomer}}",
+                                            "b": "",
+                                            "o": "notexist"
+                                        }
+                                    ]
+                                ]
+                            },
+                            "mapper": {
+                                "key": "{{1.customerID}}",
+                                "data": {
+                                    "email": "",
+                                    "cancer": "",
+                                    "gender": "",
+                                    "height": "",
+                                    "reason": "{{1.reason}}",
+                                    "smoker": "",
+                                    "weight": "",
+                                    "birthday": "",
+                                    "decision": "{{1.decision}}",
+                                    "diabetes": "",
+                                    "lastname": "",
+                                    "firstname": "",
+                                    "businessKey": "",
+                                    "decisiontype": "{{1.decisionType}}",
+                                    "customerdecision": ""
+                                },
+                                "upsert": true
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": -1236,
+                                    "y": -55
+                                },
+                                "restore": {
+                                    "upsert": {
+                                        "mode": "chose"
+                                    },
+                                    "datastore": {
+                                        "label": "Customer"
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "datastore",
+                                        "type": "datastore",
+                                        "label": "Data store",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "key",
+                                        "type": "text",
+                                        "label": "Key",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "upsert",
+                                        "type": "boolean",
+                                        "label": "Insert missing record",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "data",
+                                        "spec": [
+                                            {
+                                                "name": "firstname",
+                                                "type": "text",
+                                                "multiline": false
+                                            },
+                                            {
+                                                "name": "lastname",
+                                                "type": "text",
+                                                "multiline": false
+                                            },
+                                            {
+                                                "name": "email",
+                                                "type": "text",
+                                                "multiline": false
+                                            },
+                                            {
+                                                "name": "height",
+                                                "type": "number"
+                                            },
+                                            {
+                                                "name": "weight",
+                                                "type": "number"
+                                            },
+                                            {
+                                                "name": "smoker",
+                                                "type": "text",
+                                                "multiline": false
+                                            },
+                                            {
+                                                "name": "diabetes",
+                                                "type": "text",
+                                                "multiline": false
+                                            },
+                                            {
+                                                "name": "cancer",
+                                                "type": "text",
+                                                "multiline": false
+                                            },
+                                            {
+                                                "name": "decision",
+                                                "type": "text",
+                                                "multiline": false
+                                            },
+                                            {
+                                                "name": "decisiontype",
+                                                "type": "text",
+                                                "multiline": false
+                                            },
+                                            {
+                                                "name": "reason",
+                                                "type": "text",
+                                                "multiline": false
+                                            },
+                                            {
+                                                "name": "birthday",
+                                                "type": "date"
+                                            },
+                                            {
+                                                "name": "gender",
+                                                "type": "text",
+                                                "multiline": false
+                                            },
+                                            {
+                                                "name": "businessKey",
+                                                "type": "text",
+                                                "multiline": false
+                                            },
+                                            {
+                                                "name": "customerdecision",
+                                                "type": "text",
+                                                "multiline": false
+                                            }
+                                        ],
+                                        "type": "collection",
+                                        "label": "Record"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": 12,
+                            "module": "builtin:BasicRouter",
+                            "version": 1,
+                            "mapper": null,
+                            "metadata": {
+                                "designer": {
+                                    "x": -920,
+                                    "y": -65
+                                }
+                            },
+                            "routes": [
+                                {
+                                    "flow": [
+                                        {
+                                            "id": 13,
+                                            "module": "datastore:GetRecord",
+                                            "version": 1,
+                                            "parameters": {
+                                                "datastore": 35451
+                                            },
+                                            "filter": {
+                                                "name": "accepted",
+                                                "conditions": [
+                                                    [
+                                                        {
+                                                            "a": "{{1.decision}}",
+                                                            "b": "accepted",
+                                                            "o": "text:equal"
+                                                        }
+                                                    ]
+                                                ]
+                                            },
+                                            "mapper": {
+                                                "key": "{{1.customerID}}"
+                                            },
+                                            "metadata": {
+                                                "designer": {
+                                                    "x": -552,
+                                                    "y": -338
+                                                },
+                                                "restore": {
+                                                    "datastore": {
+                                                        "label": "Customer"
+                                                    }
+                                                },
+                                                "parameters": [
+                                                    {
+                                                        "name": "datastore",
+                                                        "type": "datastore",
+                                                        "label": "Data store",
+                                                        "required": true
+                                                    }
+                                                ],
+                                                "expect": [
+                                                    {
+                                                        "name": "key",
+                                                        "type": "text",
+                                                        "label": "Key",
+                                                        "required": true
+                                                    }
+                                                ],
+                                                "interface": [
+                                                    {
+                                                        "name": "firstname",
+                                                        "type": "text",
+                                                        "label": null,
+                                                        "default": null,
+                                                        "required": true,
+                                                        "multiline": false
+                                                    },
+                                                    {
+                                                        "name": "lastname",
+                                                        "type": "text",
+                                                        "label": null,
+                                                        "default": null,
+                                                        "required": true,
+                                                        "multiline": false
+                                                    },
+                                                    {
+                                                        "name": "email",
+                                                        "type": "text",
+                                                        "label": null,
+                                                        "default": null,
+                                                        "required": true,
+                                                        "multiline": false
+                                                    },
+                                                    {
+                                                        "name": "height",
+                                                        "type": "number",
+                                                        "label": null,
+                                                        "default": null,
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "weight",
+                                                        "type": "number",
+                                                        "label": null,
+                                                        "default": null,
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "smoker",
+                                                        "type": "text",
+                                                        "label": null,
+                                                        "default": null,
+                                                        "required": true,
+                                                        "multiline": false
+                                                    },
+                                                    {
+                                                        "name": "diabetes",
+                                                        "type": "text",
+                                                        "label": null,
+                                                        "default": null,
+                                                        "required": true,
+                                                        "multiline": false
+                                                    },
+                                                    {
+                                                        "name": "cancer",
+                                                        "type": "text",
+                                                        "label": null,
+                                                        "default": null,
+                                                        "required": true,
+                                                        "multiline": false
+                                                    },
+                                                    {
+                                                        "name": "decision",
+                                                        "type": "text",
+                                                        "label": null,
+                                                        "default": null,
+                                                        "required": false,
+                                                        "multiline": false
+                                                    },
+                                                    {
+                                                        "name": "decisiontype",
+                                                        "type": "text",
+                                                        "label": null,
+                                                        "default": null,
+                                                        "required": false,
+                                                        "multiline": false
+                                                    },
+                                                    {
+                                                        "name": "reason",
+                                                        "type": "text",
+                                                        "label": null,
+                                                        "default": null,
+                                                        "required": false,
+                                                        "multiline": false
+                                                    },
+                                                    {
+                                                        "name": "birthday",
+                                                        "type": "date",
+                                                        "label": null
+                                                    },
+                                                    {
+                                                        "name": "gender",
+                                                        "type": "text",
+                                                        "label": null,
+                                                        "default": null,
+                                                        "required": true,
+                                                        "multiline": false
+                                                    },
+                                                    {
+                                                        "name": "businessKey",
+                                                        "type": "text",
+                                                        "label": null,
+                                                        "default": null,
+                                                        "required": true,
+                                                        "multiline": false
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        {
+                                            "id": 14,
+                                            "module": "eledo:Generate",
+                                            "version": 1,
+                                            "parameters": {
+                                                "__IMTCONN__": 2379445
+                                            },
+                                            "mapper": {
+                                                "fields": {
+                                                    "cancer": "{{13.cancer}}",
+                                                    "gender": "{{13.gender}}",
+                                                    "height": "{{13.height}}",
+                                                    "smoker": "{{13.smoker}}",
+                                                    "weight": "{{13.weight}}",
+                                                    "diabetes": "{{13.diabetes}}",
+                                                    "lastname": "{{13.lastname}}",
+                                                    "firstname": "{{13.firstname}}",
+                                                    "customerID": "{{11.key}}",
+                                                    "dateofbirth": "{{formatDate(13.birthday; )}}",
+                                                    "Offer_customerID": "Offer {{1.customerID}}"
+                                                },
+                                                "templateId": "608a5a353bbdc1e87d99e5e2"
+                                            },
+                                            "metadata": {
+                                                "designer": {
+                                                    "x": -243,
+                                                    "y": -334
+                                                },
+                                                "restore": {
+                                                    "templateId": {
+                                                        "label": "Offer for health insurance "
+                                                    },
+                                                    "__IMTCONN__": {
+                                                        "label": "My Eledo PDF connection (jerome.wick@students.fhnw.ch)"
+                                                    }
+                                                },
+                                                "parameters": [
+                                                    {
+                                                        "name": "__IMTCONN__",
+                                                        "type": "account",
+                                                        "label": "Connection",
+                                                        "required": true
+                                                    }
+                                                ],
+                                                "expect": [
+                                                    {
+                                                        "name": "templateId",
+                                                        "type": "select",
+                                                        "label": "Template"
+                                                    },
+                                                    {
+                                                        "name": "fields",
+                                                        "spec": [
+                                                            {
+                                                                "name": "firstname",
+                                                                "type": "text"
+                                                            },
+                                                            {
+                                                                "name": "lastname",
+                                                                "type": "text"
+                                                            },
+                                                            {
+                                                                "name": "customerID",
+                                                                "type": "text"
+                                                            },
+                                                            {
+                                                                "name": "gender",
+                                                                "type": "text"
+                                                            },
+                                                            {
+                                                                "name": "dateofbirth",
+                                                                "type": "text"
+                                                            },
+                                                            {
+                                                                "name": "height",
+                                                                "type": "text"
+                                                            },
+                                                            {
+                                                                "name": "weight",
+                                                                "type": "text"
+                                                            },
+                                                            {
+                                                                "name": "smoker",
+                                                                "type": "text"
+                                                            },
+                                                            {
+                                                                "name": "diabetes",
+                                                                "type": "text"
+                                                            },
+                                                            {
+                                                                "name": "cancer",
+                                                                "type": "text"
+                                                            },
+                                                            {
+                                                                "name": "Offer_customerID",
+                                                                "type": "text"
+                                                            }
+                                                        ],
+                                                        "type": "collection",
+                                                        "label": "Custom Fields"
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        {
+                                            "id": 22,
+                                            "module": "http:ActionSendData",
+                                            "version": 3,
+                                            "parameters": {
+                                                "handleErrors": false
+                                            },
+                                            "mapper": {
+                                                "ca": "",
+                                                "qs": [
+                                                    {
+                                                        "name": "processInstanceBusinessKey",
+                                                        "value": "{{13.businessKey}}"
+                                                    }
+                                                ],
+                                                "url": "https://digibp-teamtirggel.herokuapp.com/engine-rest/task",
+                                                "gzip": true,
+                                                "method": "get",
+                                                "headers": [],
+                                                "timeout": "",
+                                                "useMtls": false,
+                                                "authPass": "",
+                                                "authUser": "",
+                                                "bodyType": "",
+                                                "shareCookies": false,
+                                                "parseResponse": false,
+                                                "followRedirect": true,
+                                                "useQuerystring": false,
+                                                "followAllRedirects": false,
+                                                "rejectUnauthorized": true
+                                            },
+                                            "metadata": {
+                                                "designer": {
+                                                    "x": 64,
+                                                    "y": -333
+                                                },
+                                                "restore": {
+                                                    "qs": {
+                                                        "mode": "chose",
+                                                        "items": [
+                                                            "undefined"
+                                                        ]
+                                                    },
+                                                    "method": {
+                                                        "mode": "chose",
+                                                        "label": "GET"
+                                                    },
+                                                    "headers": {
+                                                        "mode": "chose",
+                                                        "items": []
+                                                    },
+                                                    "bodyType": {
+                                                        "label": ""
+                                                    }
+                                                },
+                                                "parameters": [
+                                                    {
+                                                        "name": "handleErrors",
+                                                        "type": "boolean",
+                                                        "label": "Evaluate all states as errors (except for 2xx and 3xx )",
+                                                        "required": true
+                                                    }
+                                                ],
+                                                "expect": [
+                                                    {
+                                                        "name": "url",
+                                                        "type": "url",
+                                                        "label": "URL",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "method",
+                                                        "type": "select",
+                                                        "label": "Method",
+                                                        "required": true,
+                                                        "validate": {
+                                                            "enum": [
+                                                                "get",
+                                                                "head",
+                                                                "post",
+                                                                "put",
+                                                                "patch",
+                                                                "delete"
+                                                            ]
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "headers",
+                                                        "spec": [
+                                                            {
+                                                                "name": "name",
+                                                                "type": "text",
+                                                                "label": "Name",
+                                                                "required": true
+                                                            },
+                                                            {
+                                                                "name": "value",
+                                                                "type": "text",
+                                                                "label": "Value"
+                                                            }
+                                                        ],
+                                                        "type": "array",
+                                                        "label": "Headers",
+                                                        "labels": {
+                                                            "add": "Add a header",
+                                                            "edit": "Edit a header"
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "qs",
+                                                        "spec": [
+                                                            {
+                                                                "name": "name",
+                                                                "type": "text",
+                                                                "label": "Name",
+                                                                "required": true
+                                                            },
+                                                            {
+                                                                "name": "value",
+                                                                "type": "text",
+                                                                "label": "Value"
+                                                            }
+                                                        ],
+                                                        "type": "array",
+                                                        "label": "Query String",
+                                                        "labels": {
+                                                            "add": "Add parameter",
+                                                            "edit": "Edit parameter"
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "bodyType",
+                                                        "type": "select",
+                                                        "label": "Body type",
+                                                        "validate": {
+                                                            "enum": [
+                                                                "raw",
+                                                                "x_www_form_urlencoded",
+                                                                "multipart_form_data"
+                                                            ]
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "parseResponse",
+                                                        "type": "boolean",
+                                                        "label": "Parse response",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "authUser",
+                                                        "type": "text",
+                                                        "label": "User name"
+                                                    },
+                                                    {
+                                                        "name": "authPass",
+                                                        "type": "password",
+                                                        "label": "Password"
+                                                    },
+                                                    {
+                                                        "name": "timeout",
+                                                        "type": "uinteger",
+                                                        "label": "Timeout",
+                                                        "validate": {
+                                                            "max": 300,
+                                                            "min": 1
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "shareCookies",
+                                                        "type": "boolean",
+                                                        "label": "Share cookies with other HTTP modules",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "ca",
+                                                        "type": "cert",
+                                                        "label": "Self-signed certificate",
+                                                        "multiline": true
+                                                    },
+                                                    {
+                                                        "name": "rejectUnauthorized",
+                                                        "type": "boolean",
+                                                        "label": "Reject connections that are using unverified (self-signed) certificates",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "followRedirect",
+                                                        "type": "boolean",
+                                                        "label": "Follow redirect",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "useQuerystring",
+                                                        "type": "boolean",
+                                                        "label": "Disable serialization of multiple same query string keys as arrays",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "gzip",
+                                                        "type": "boolean",
+                                                        "label": "Request compressed content",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "useMtls",
+                                                        "type": "boolean",
+                                                        "label": "Use Mutual TLS",
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "followAllRedirects",
+                                                        "type": "boolean",
+                                                        "label": "Follow all redirect",
+                                                        "required": true
+                                                    }
+                                                ],
+                                                "advanced": true
+                                            }
+                                        },
+                                        {
+                                            "id": 26,
+                                            "module": "json:ParseJSON",
+                                            "version": 1,
+                                            "parameters": {
+                                                "type": 156244
+                                            },
+                                            "mapper": {
+                                                "json": "{{22.data}}"
+                                            },
+                                            "metadata": {
+                                                "designer": {
+                                                    "x": 379,
+                                                    "y": -335
+                                                },
+                                                "restore": {
+                                                    "type": {
+                                                        "label": "My data structure"
+                                                    }
+                                                },
+                                                "parameters": [
+                                                    {
+                                                        "name": "type",
+                                                        "type": "udt",
+                                                        "label": "Data structure"
+                                                    }
+                                                ],
+                                                "expect": [
+                                                    {
+                                                        "name": "json",
+                                                        "type": "text",
+                                                        "label": "JSON string",
+                                                        "required": true
+                                                    }
+                                                ],
+                                                "interface": [
+                                                    {
+                                                        "name": "id",
+                                                        "type": "text"
+                                                    },
+                                                    {
+                                                        "name": "name",
+                                                        "type": "text"
+                                                    },
+                                                    {
+                                                        "name": "assignee",
+                                                        "type": "text"
+                                                    },
+                                                    {
+                                                        "name": "created",
+                                                        "type": "text"
+                                                    },
+                                                    {
+                                                        "name": "due",
+                                                        "type": "text"
+                                                    },
+                                                    {
+                                                        "name": "followUp",
+                                                        "type": "text"
+                                                    },
+                                                    {
+                                                        "name": "delegationState",
+                                                        "type": "text"
+                                                    },
+                                                    {
+                                                        "name": "description",
+                                                        "type": "text"
+                                                    },
+                                                    {
+                                                        "name": "executionId",
+                                                        "type": "text"
+                                                    },
+                                                    {
+                                                        "name": "owner",
+                                                        "type": "text"
+                                                    },
+                                                    {
+                                                        "name": "parentTaskId",
+                                                        "type": "text"
+                                                    },
+                                                    {
+                                                        "name": "priority",
+                                                        "type": "number"
+                                                    },
+                                                    {
+                                                        "name": "processDefinitionId",
+                                                        "type": "text"
+                                                    },
+                                                    {
+                                                        "name": "processInstanceId",
+                                                        "type": "text"
+                                                    },
+                                                    {
+                                                        "name": "taskDefinitionKey",
+                                                        "type": "text"
+                                                    },
+                                                    {
+                                                        "name": "caseExecutionId",
+                                                        "type": "text"
+                                                    },
+                                                    {
+                                                        "name": "caseInstanceId",
+                                                        "type": "text"
+                                                    },
+                                                    {
+                                                        "name": "caseDefinitionId",
+                                                        "type": "text"
+                                                    },
+                                                    {
+                                                        "name": "suspended",
+                                                        "type": "boolean"
+                                                    },
+                                                    {
+                                                        "name": "formKey",
+                                                        "type": "text"
+                                                    },
+                                                    {
+                                                        "name": "tenantId",
+                                                        "type": "text"
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        {
+                                            "id": 34,
+                                            "module": "builtin:BasicRouter",
+                                            "version": 1,
+                                            "mapper": null,
+                                            "metadata": {
+                                                "designer": {
+                                                    "x": 698,
+                                                    "y": -349
+                                                }
+                                            },
+                                            "routes": [
+                                                {
+                                                    "flow": [
+                                                        {
+                                                            "id": 15,
+                                                            "module": "google-email:ActionSendEmail",
+                                                            "version": 2,
+                                                            "parameters": {
+                                                                "account": 2400366
+                                                            },
+                                                            "mapper": {
+                                                                "cc": [],
+                                                                "to": [
+                                                                    "{{13.email}}"
+                                                                ],
+                                                                "bcc": [],
+                                                                "from": "",
+                                                                "html": "Dear {{13.firstname}} {{13.lastname}},<br>\n<br>\nPlease find your offer in the attachement.<br>\n<br>\n\n<a href=https://hook.integromat.com/osi2usp3ikid4kd765pzh06jia4t64qu?taskID={{26.id}}&acceptancecustomer=true>Accept offer</a> <br><br>\n<a href=https://hook.integromat.com/osi2usp3ikid4kd765pzh06jia4t64qu?taskID={{26.id}}&acceptancecustomer=false>Reject offer</a>\n<br><br>\nYours sincerely,<br>\nInsurance Vitae",
+                                                                "subject": "Offer Insruance Vitae for {{13.firstname}} {{13.lastname}}",
+                                                                "attachments": [
+                                                                    {
+                                                                        "cid": "",
+                                                                        "data": "{{14.data}}",
+                                                                        "fileName": "{{14.fileName}}"
+                                                                    }
+                                                                ]
+                                                            },
+                                                            "metadata": {
+                                                                "designer": {
+                                                                    "x": 1156,
+                                                                    "y": -594
+                                                                },
+                                                                "restore": {
+                                                                    "cc": {
+                                                                        "mode": "chose",
+                                                                        "items": []
+                                                                    },
+                                                                    "to": {
+                                                                        "mode": "chose",
+                                                                        "items": [
+                                                                            "undefined"
+                                                                        ]
+                                                                    },
+                                                                    "bcc": {
+                                                                        "mode": "chose",
+                                                                        "items": []
+                                                                    },
+                                                                    "account": {
+                                                                        "label": "GMail Insurance Vitae (insurance.vitae@gmail.com)"
+                                                                    },
+                                                                    "attachments": {
+                                                                        "mode": "chose",
+                                                                        "items": [
+                                                                            "undefined"
+                                                                        ]
+                                                                    }
+                                                                },
+                                                                "parameters": [
+                                                                    {
+                                                                        "name": "account",
+                                                                        "type": "account",
+                                                                        "label": "Connection",
+                                                                        "required": true
+                                                                    }
+                                                                ],
+                                                                "expect": [
+                                                                    {
+                                                                        "name": "from",
+                                                                        "type": "text",
+                                                                        "label": "From"
+                                                                    },
+                                                                    {
+                                                                        "name": "to",
+                                                                        "spec": {
+                                                                            "name": " ",
+                                                                            "type": "email",
+                                                                            "label": "Email address",
+                                                                            "required": true
+                                                                        },
+                                                                        "type": "array",
+                                                                        "label": "To",
+                                                                        "labels": {
+                                                                            "add": "Add a recipient",
+                                                                            "edit": "Edit a recipient"
+                                                                        },
+                                                                        "required": true
+                                                                    },
+                                                                    {
+                                                                        "name": "subject",
+                                                                        "type": "text",
+                                                                        "label": "Subject"
+                                                                    },
+                                                                    {
+                                                                        "name": "html",
+                                                                        "type": "text",
+                                                                        "label": "Content"
+                                                                    },
+                                                                    {
+                                                                        "name": "attachments",
+                                                                        "spec": [
+                                                                            {
+                                                                                "name": "fileName",
+                                                                                "type": "filename",
+                                                                                "label": "File name",
+                                                                                "required": true,
+                                                                                "semantic": "file:name"
+                                                                            },
+                                                                            {
+                                                                                "name": "data",
+                                                                                "type": "buffer",
+                                                                                "label": "Data",
+                                                                                "required": true,
+                                                                                "semantic": "file:data"
+                                                                            },
+                                                                            {
+                                                                                "name": "cid",
+                                                                                "type": "text",
+                                                                                "label": "Content-ID"
+                                                                            }
+                                                                        ],
+                                                                        "type": "array",
+                                                                        "label": "Attachments",
+                                                                        "labels": {
+                                                                            "add": "Add an attachment",
+                                                                            "edit": "Edit an attachment"
+                                                                        }
+                                                                    },
+                                                                    {
+                                                                        "name": "cc",
+                                                                        "spec": {
+                                                                            "type": "email",
+                                                                            "label": "Email address"
+                                                                        },
+                                                                        "type": "array",
+                                                                        "label": "Copy recipient",
+                                                                        "labels": {
+                                                                            "add": "Add a copy recipient",
+                                                                            "edit": "Edit a copy recipient"
+                                                                        }
+                                                                    },
+                                                                    {
+                                                                        "name": "bcc",
+                                                                        "spec": {
+                                                                            "type": "email",
+                                                                            "label": "Email address"
+                                                                        },
+                                                                        "type": "array",
+                                                                        "label": "Blind copy recipient",
+                                                                        "labels": {
+                                                                            "add": "Add a blind copy recipient",
+                                                                            "edit": "Edit a blind copy recipient"
+                                                                        }
+                                                                    }
+                                                                ]
+                                                            }
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "flow": [
+                                                        {
+                                                            "id": 35,
+                                                            "module": "google-drive:uploadAFile",
+                                                            "version": 4,
+                                                            "parameters": {
+                                                                "__IMTCONN__": 2400366
+                                                            },
+                                                            "mapper": {
+                                                                "data": "{{14.data}}",
+                                                                "select": "value",
+                                                                "convert": false,
+                                                                "filename": "{{14.fileName}}",
+                                                                "folderId": "/1XYjGGZUwiK5Dy1FnkoBxmzlyVCjhk18w",
+                                                                "destination": "drive"
+                                                            },
+                                                            "metadata": {
+                                                                "designer": {
+                                                                    "x": 1171,
+                                                                    "y": -194
+                                                                },
+                                                                "restore": {
+                                                                    "select": {
+                                                                        "label": "Select from the list"
+                                                                    },
+                                                                    "folderId": {
+                                                                        "mode": "chose",
+                                                                        "path": [
+                                                                            "Offers"
+                                                                        ]
+                                                                    },
+                                                                    "__IMTCONN__": {
+                                                                        "label": "GMail Insurance Vitae (insurance.vitae@gmail.com)"
+                                                                    },
+                                                                    "destination": {
+                                                                        "label": "My Drive"
+                                                                    }
+                                                                },
+                                                                "parameters": [
+                                                                    {
+                                                                        "name": "__IMTCONN__",
+                                                                        "type": "account",
+                                                                        "label": "Connection",
+                                                                        "required": true
+                                                                    }
+                                                                ],
+                                                                "expect": [
+                                                                    {
+                                                                        "name": "select",
+                                                                        "type": "select",
+                                                                        "label": "Enter a Folder ID",
+                                                                        "required": true,
+                                                                        "validate": {
+                                                                            "enum": [
+                                                                                "map",
+                                                                                "value"
+                                                                            ]
+                                                                        }
+                                                                    },
+                                                                    {
+                                                                        "name": "title",
+                                                                        "type": "text",
+                                                                        "label": "New File Name"
+                                                                    },
+                                                                    {
+                                                                        "mean": "name",
+                                                                        "name": "filename",
+                                                                        "type": "filename",
+                                                                        "label": "File Name",
+                                                                        "required": true
+                                                                    },
+                                                                    {
+                                                                        "mean": "data",
+                                                                        "name": "data",
+                                                                        "type": "buffer",
+                                                                        "label": "Data",
+                                                                        "required": true
+                                                                    },
+                                                                    {
+                                                                        "name": "convert",
+                                                                        "type": "boolean",
+                                                                        "label": "Convert a File",
+                                                                        "required": true
+                                                                    },
+                                                                    {
+                                                                        "name": "destination",
+                                                                        "type": "select",
+                                                                        "label": "New Drive Location",
+                                                                        "required": true,
+                                                                        "validate": {
+                                                                            "enum": [
+                                                                                "drive",
+                                                                                "share",
+                                                                                "team"
+                                                                            ]
+                                                                        }
+                                                                    },
+                                                                    {
+                                                                        "name": "folderId",
+                                                                        "type": "folder",
+                                                                        "label": "New Folder Location",
+                                                                        "required": true
+                                                                    }
+                                                                ]
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "flow": [
+                                        {
+                                            "id": 16,
+                                            "module": "datastore:GetRecord",
+                                            "version": 1,
+                                            "parameters": {
+                                                "datastore": 35451
+                                            },
+                                            "filter": {
+                                                "name": "rejected",
+                                                "conditions": [
+                                                    [
+                                                        {
+                                                            "a": "{{1.decision}}",
+                                                            "b": "rejected",
+                                                            "o": "text:equal"
+                                                        }
+                                                    ]
+                                                ]
+                                            },
+                                            "mapper": {
+                                                "key": "{{1.customerID}}"
+                                            },
+                                            "metadata": {
+                                                "designer": {
+                                                    "x": -552,
+                                                    "y": -90
+                                                },
+                                                "restore": {
+                                                    "datastore": {
+                                                        "label": "Customer"
+                                                    }
+                                                },
+                                                "parameters": [
+                                                    {
+                                                        "name": "datastore",
+                                                        "type": "datastore",
+                                                        "label": "Data store",
+                                                        "required": true
+                                                    }
+                                                ],
+                                                "expect": [
+                                                    {
+                                                        "name": "key",
+                                                        "type": "text",
+                                                        "label": "Key",
+                                                        "required": true
+                                                    }
+                                                ],
+                                                "interface": [
+                                                    {
+                                                        "name": "firstname",
+                                                        "type": "text",
+                                                        "label": null,
+                                                        "default": null,
+                                                        "required": true,
+                                                        "multiline": false
+                                                    },
+                                                    {
+                                                        "name": "lastname",
+                                                        "type": "text",
+                                                        "label": null,
+                                                        "default": null,
+                                                        "required": true,
+                                                        "multiline": false
+                                                    },
+                                                    {
+                                                        "name": "email",
+                                                        "type": "text",
+                                                        "label": null,
+                                                        "default": null,
+                                                        "required": true,
+                                                        "multiline": false
+                                                    },
+                                                    {
+                                                        "name": "height",
+                                                        "type": "number",
+                                                        "label": null,
+                                                        "default": null,
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "weight",
+                                                        "type": "number",
+                                                        "label": null,
+                                                        "default": null,
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "smoker",
+                                                        "type": "text",
+                                                        "label": null,
+                                                        "default": null,
+                                                        "required": true,
+                                                        "multiline": false
+                                                    },
+                                                    {
+                                                        "name": "diabetes",
+                                                        "type": "text",
+                                                        "label": null,
+                                                        "default": null,
+                                                        "required": true,
+                                                        "multiline": false
+                                                    },
+                                                    {
+                                                        "name": "cancer",
+                                                        "type": "text",
+                                                        "label": null,
+                                                        "default": null,
+                                                        "required": true,
+                                                        "multiline": false
+                                                    },
+                                                    {
+                                                        "name": "decision",
+                                                        "type": "text",
+                                                        "label": null,
+                                                        "default": null,
+                                                        "required": false,
+                                                        "multiline": false
+                                                    },
+                                                    {
+                                                        "name": "decisiontype",
+                                                        "type": "text",
+                                                        "label": null,
+                                                        "default": null,
+                                                        "required": false,
+                                                        "multiline": false
+                                                    },
+                                                    {
+                                                        "name": "reason",
+                                                        "type": "text",
+                                                        "label": null,
+                                                        "default": null,
+                                                        "required": false,
+                                                        "multiline": false
+                                                    },
+                                                    {
+                                                        "name": "birthday",
+                                                        "type": "date",
+                                                        "label": null
+                                                    },
+                                                    {
+                                                        "name": "gender",
+                                                        "type": "text",
+                                                        "label": null,
+                                                        "default": null,
+                                                        "required": true,
+                                                        "multiline": false
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        {
+                                            "id": 17,
+                                            "module": "google-email:ActionSendEmail",
+                                            "version": 2,
+                                            "parameters": {
+                                                "account": 2400366
+                                            },
+                                            "mapper": {
+                                                "cc": [],
+                                                "to": [
+                                                    "{{16.email}}"
+                                                ],
+                                                "bcc": [],
+                                                "from": "",
+                                                "html": "Dear {{16.firstname}} {{16.lastname}},<br>\n<br>\nAfter checking your health status we have to reject your application.<br>\n<br>\nYours sincerely,<br>\nInsurance Vitae",
+                                                "subject": "Rejection Insruance Vitae",
+                                                "attachments": []
+                                            },
+                                            "metadata": {
+                                                "designer": {
+                                                    "x": -246,
+                                                    "y": -93
+                                                },
+                                                "restore": {
+                                                    "cc": {
+                                                        "mode": "chose",
+                                                        "items": []
+                                                    },
+                                                    "to": {
+                                                        "mode": "chose",
+                                                        "items": [
+                                                            "undefined"
+                                                        ]
+                                                    },
+                                                    "bcc": {
+                                                        "mode": "chose",
+                                                        "items": []
+                                                    },
+                                                    "account": {
+                                                        "label": "GMail Insurance Vitae (insurance.vitae@gmail.com)"
+                                                    },
+                                                    "attachments": {
+                                                        "mode": "chose",
+                                                        "items": []
+                                                    }
+                                                },
+                                                "parameters": [
+                                                    {
+                                                        "name": "account",
+                                                        "type": "account",
+                                                        "label": "Connection",
+                                                        "required": true
+                                                    }
+                                                ],
+                                                "expect": [
+                                                    {
+                                                        "name": "from",
+                                                        "type": "text",
+                                                        "label": "From"
+                                                    },
+                                                    {
+                                                        "name": "to",
+                                                        "spec": {
+                                                            "name": " ",
+                                                            "type": "email",
+                                                            "label": "Email address",
+                                                            "required": true
+                                                        },
+                                                        "type": "array",
+                                                        "label": "To",
+                                                        "labels": {
+                                                            "add": "Add a recipient",
+                                                            "edit": "Edit a recipient"
+                                                        },
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "subject",
+                                                        "type": "text",
+                                                        "label": "Subject"
+                                                    },
+                                                    {
+                                                        "name": "html",
+                                                        "type": "text",
+                                                        "label": "Content"
+                                                    },
+                                                    {
+                                                        "name": "attachments",
+                                                        "spec": [
+                                                            {
+                                                                "name": "fileName",
+                                                                "type": "filename",
+                                                                "label": "File name",
+                                                                "required": true,
+                                                                "semantic": "file:name"
+                                                            },
+                                                            {
+                                                                "name": "data",
+                                                                "type": "buffer",
+                                                                "label": "Data",
+                                                                "required": true,
+                                                                "semantic": "file:data"
+                                                            },
+                                                            {
+                                                                "name": "cid",
+                                                                "type": "text",
+                                                                "label": "Content-ID"
+                                                            }
+                                                        ],
+                                                        "type": "array",
+                                                        "label": "Attachments",
+                                                        "labels": {
+                                                            "add": "Add an attachment",
+                                                            "edit": "Edit an attachment"
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "cc",
+                                                        "spec": {
+                                                            "type": "email",
+                                                            "label": "Email address"
+                                                        },
+                                                        "type": "array",
+                                                        "label": "Copy recipient",
+                                                        "labels": {
+                                                            "add": "Add a copy recipient",
+                                                            "edit": "Edit a copy recipient"
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "bcc",
+                                                        "spec": {
+                                                            "type": "email",
+                                                            "label": "Email address"
+                                                        },
+                                                        "type": "array",
+                                                        "label": "Blind copy recipient",
+                                                        "labels": {
+                                                            "add": "Add a blind copy recipient",
+                                                            "edit": "Edit a blind copy recipient"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "flow": [
+                                        {
+                                            "id": 18,
+                                            "module": "datastore:GetRecord",
+                                            "version": 1,
+                                            "parameters": {
+                                                "datastore": 35451
+                                            },
+                                            "filter": {
+                                                "name": "to be checked manually",
+                                                "conditions": [
+                                                    [
+                                                        {
+                                                            "a": "{{1.decisionType}}",
+                                                            "b": "manually",
+                                                            "o": "text:equal"
+                                                        },
+                                                        {
+                                                            "a": "{{1.decision}}",
+                                                            "b": "",
+                                                            "o": "notexist"
+                                                        }
+                                                    ]
+                                                ]
+                                            },
+                                            "mapper": {
+                                                "key": "{{1.customerID}}"
+                                            },
+                                            "metadata": {
+                                                "designer": {
+                                                    "x": -556,
+                                                    "y": 181
+                                                },
+                                                "restore": {
+                                                    "datastore": {
+                                                        "label": "Customer"
+                                                    }
+                                                },
+                                                "parameters": [
+                                                    {
+                                                        "name": "datastore",
+                                                        "type": "datastore",
+                                                        "label": "Data store",
+                                                        "required": true
+                                                    }
+                                                ],
+                                                "expect": [
+                                                    {
+                                                        "name": "key",
+                                                        "type": "text",
+                                                        "label": "Key",
+                                                        "required": true
+                                                    }
+                                                ],
+                                                "interface": [
+                                                    {
+                                                        "name": "firstname",
+                                                        "type": "text",
+                                                        "label": null,
+                                                        "default": null,
+                                                        "required": true,
+                                                        "multiline": false
+                                                    },
+                                                    {
+                                                        "name": "lastname",
+                                                        "type": "text",
+                                                        "label": null,
+                                                        "default": null,
+                                                        "required": true,
+                                                        "multiline": false
+                                                    },
+                                                    {
+                                                        "name": "email",
+                                                        "type": "text",
+                                                        "label": null,
+                                                        "default": null,
+                                                        "required": true,
+                                                        "multiline": false
+                                                    },
+                                                    {
+                                                        "name": "height",
+                                                        "type": "number",
+                                                        "label": null,
+                                                        "default": null,
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "weight",
+                                                        "type": "number",
+                                                        "label": null,
+                                                        "default": null,
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "smoker",
+                                                        "type": "text",
+                                                        "label": null,
+                                                        "default": null,
+                                                        "required": true,
+                                                        "multiline": false
+                                                    },
+                                                    {
+                                                        "name": "diabetes",
+                                                        "type": "text",
+                                                        "label": null,
+                                                        "default": null,
+                                                        "required": true,
+                                                        "multiline": false
+                                                    },
+                                                    {
+                                                        "name": "cancer",
+                                                        "type": "text",
+                                                        "label": null,
+                                                        "default": null,
+                                                        "required": true,
+                                                        "multiline": false
+                                                    },
+                                                    {
+                                                        "name": "decision",
+                                                        "type": "text",
+                                                        "label": null,
+                                                        "default": null,
+                                                        "required": false,
+                                                        "multiline": false
+                                                    },
+                                                    {
+                                                        "name": "decisiontype",
+                                                        "type": "text",
+                                                        "label": null,
+                                                        "default": null,
+                                                        "required": false,
+                                                        "multiline": false
+                                                    },
+                                                    {
+                                                        "name": "reason",
+                                                        "type": "text",
+                                                        "label": null,
+                                                        "default": null,
+                                                        "required": false,
+                                                        "multiline": false
+                                                    },
+                                                    {
+                                                        "name": "birthday",
+                                                        "type": "date",
+                                                        "label": null
+                                                    },
+                                                    {
+                                                        "name": "gender",
+                                                        "type": "text",
+                                                        "label": null,
+                                                        "default": null,
+                                                        "required": true,
+                                                        "multiline": false
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        {
+                                            "id": 19,
+                                            "module": "google-email:ActionSendEmail",
+                                            "version": 2,
+                                            "parameters": {
+                                                "account": 2400366
+                                            },
+                                            "mapper": {
+                                                "cc": [],
+                                                "to": [
+                                                    "{{18.email}}"
+                                                ],
+                                                "bcc": [],
+                                                "from": "",
+                                                "html": "Dear {{18.firstname}} {{18.lastname}}, <br>\n<br>\nYour application will be checked within 48h. If you don't get an answer, please contact us per phone or mail. To identify your request please provide us the following ID:<br>\n{{11.key}}<br>\n<br>\n<br>\nYours sincerely,<br>\nInsurance Vitae",
+                                                "subject": "Application check Insurance Vitae",
+                                                "attachments": []
+                                            },
+                                            "metadata": {
+                                                "designer": {
+                                                    "x": -234,
+                                                    "y": 175
+                                                },
+                                                "restore": {
+                                                    "cc": {
+                                                        "mode": "chose",
+                                                        "items": []
+                                                    },
+                                                    "to": {
+                                                        "mode": "chose",
+                                                        "items": [
+                                                            "undefined"
+                                                        ]
+                                                    },
+                                                    "bcc": {
+                                                        "mode": "chose",
+                                                        "items": []
+                                                    },
+                                                    "account": {
+                                                        "label": "GMail Insurance Vitae (insurance.vitae@gmail.com)"
+                                                    },
+                                                    "attachments": {
+                                                        "mode": "chose",
+                                                        "items": []
+                                                    }
+                                                },
+                                                "parameters": [
+                                                    {
+                                                        "name": "account",
+                                                        "type": "account",
+                                                        "label": "Connection",
+                                                        "required": true
+                                                    }
+                                                ],
+                                                "expect": [
+                                                    {
+                                                        "name": "from",
+                                                        "type": "text",
+                                                        "label": "From"
+                                                    },
+                                                    {
+                                                        "name": "to",
+                                                        "spec": {
+                                                            "name": " ",
+                                                            "type": "email",
+                                                            "label": "Email address",
+                                                            "required": true
+                                                        },
+                                                        "type": "array",
+                                                        "label": "To",
+                                                        "labels": {
+                                                            "add": "Add a recipient",
+                                                            "edit": "Edit a recipient"
+                                                        },
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "subject",
+                                                        "type": "text",
+                                                        "label": "Subject"
+                                                    },
+                                                    {
+                                                        "name": "html",
+                                                        "type": "text",
+                                                        "label": "Content"
+                                                    },
+                                                    {
+                                                        "name": "attachments",
+                                                        "spec": [
+                                                            {
+                                                                "name": "fileName",
+                                                                "type": "filename",
+                                                                "label": "File name",
+                                                                "required": true,
+                                                                "semantic": "file:name"
+                                                            },
+                                                            {
+                                                                "name": "data",
+                                                                "type": "buffer",
+                                                                "label": "Data",
+                                                                "required": true,
+                                                                "semantic": "file:data"
+                                                            },
+                                                            {
+                                                                "name": "cid",
+                                                                "type": "text",
+                                                                "label": "Content-ID"
+                                                            }
+                                                        ],
+                                                        "type": "array",
+                                                        "label": "Attachments",
+                                                        "labels": {
+                                                            "add": "Add an attachment",
+                                                            "edit": "Edit an attachment"
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "cc",
+                                                        "spec": {
+                                                            "type": "email",
+                                                            "label": "Email address"
+                                                        },
+                                                        "type": "array",
+                                                        "label": "Copy recipient",
+                                                        "labels": {
+                                                            "add": "Add a copy recipient",
+                                                            "edit": "Edit a copy recipient"
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "bcc",
+                                                        "spec": {
+                                                            "type": "email",
+                                                            "label": "Email address"
+                                                        },
+                                                        "type": "array",
+                                                        "label": "Blind copy recipient",
+                                                        "labels": {
+                                                            "add": "Add a blind copy recipient",
+                                                            "edit": "Edit a blind copy recipient"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "flow": [
+                        {
+                            "id": 27,
+                            "module": "datastore:UpdateRecord",
+                            "version": 1,
+                            "parameters": {
+                                "datastore": 35451
+                            },
+                            "filter": {
+                                "name": "Acceptance Customer receveid",
+                                "conditions": [
+                                    [
+                                        {
+                                            "a": "{{1.acceptancecustomer}}",
+                                            "b": "",
+                                            "o": "exist"
+                                        }
+                                    ]
+                                ]
+                            },
+                            "mapper": {
+                                "key": "{{1.customerID}}",
+                                "data": {
+                                    "email": "",
+                                    "cancer": "",
+                                    "gender": "",
+                                    "height": "",
+                                    "reason": "",
+                                    "smoker": "",
+                                    "weight": "",
+                                    "birthday": "",
+                                    "decision": "",
+                                    "diabetes": "",
+                                    "lastname": "",
+                                    "firstname": "",
+                                    "businessKey": "",
+                                    "decisiontype": "",
+                                    "customerdecision": "{{1.acceptancecustomer}}"
+                                },
+                                "upsert": true
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": -1992,
+                                    "y": -701
+                                },
+                                "restore": {
+                                    "upsert": {
+                                        "mode": "chose"
+                                    },
+                                    "datastore": {
+                                        "label": "Customer"
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "datastore",
+                                        "type": "datastore",
+                                        "label": "Data store",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "key",
+                                        "type": "text",
+                                        "label": "Key",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "upsert",
+                                        "type": "boolean",
+                                        "label": "Insert missing record",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "data",
+                                        "spec": [
+                                            {
+                                                "name": "firstname",
+                                                "type": "text",
+                                                "multiline": false
+                                            },
+                                            {
+                                                "name": "lastname",
+                                                "type": "text",
+                                                "multiline": false
+                                            },
+                                            {
+                                                "name": "email",
+                                                "type": "text",
+                                                "multiline": false
+                                            },
+                                            {
+                                                "name": "height",
+                                                "type": "number"
+                                            },
+                                            {
+                                                "name": "weight",
+                                                "type": "number"
+                                            },
+                                            {
+                                                "name": "smoker",
+                                                "type": "text",
+                                                "multiline": false
+                                            },
+                                            {
+                                                "name": "diabetes",
+                                                "type": "text",
+                                                "multiline": false
+                                            },
+                                            {
+                                                "name": "cancer",
+                                                "type": "text",
+                                                "multiline": false
+                                            },
+                                            {
+                                                "name": "decision",
+                                                "type": "text",
+                                                "multiline": false
+                                            },
+                                            {
+                                                "name": "decisiontype",
+                                                "type": "text",
+                                                "multiline": false
+                                            },
+                                            {
+                                                "name": "reason",
+                                                "type": "text",
+                                                "multiline": false
+                                            },
+                                            {
+                                                "name": "birthday",
+                                                "type": "date"
+                                            },
+                                            {
+                                                "name": "gender",
+                                                "type": "text",
+                                                "multiline": false
+                                            },
+                                            {
+                                                "name": "businessKey",
+                                                "type": "text",
+                                                "multiline": false
+                                            },
+                                            {
+                                                "name": "customerdecision",
+                                                "type": "text",
+                                                "multiline": false
+                                            }
+                                        ],
+                                        "type": "collection",
+                                        "label": "Record"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": 32,
+                            "module": "datastore:GetRecord",
+                            "version": 1,
+                            "parameters": {
+                                "datastore": 35451
+                            },
+                            "mapper": {
+                                "key": "{{27.key}}"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": -1039,
+                                    "y": -685
+                                },
+                                "restore": {
+                                    "datastore": {
+                                        "label": "Customer"
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "datastore",
+                                        "type": "datastore",
+                                        "label": "Data store",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "key",
+                                        "type": "text",
+                                        "label": "Key",
+                                        "required": true
+                                    }
+                                ],
+                                "interface": [
+                                    {
+                                        "name": "firstname",
+                                        "type": "text",
+                                        "label": null,
+                                        "default": null,
+                                        "required": true,
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "lastname",
+                                        "type": "text",
+                                        "label": null,
+                                        "default": null,
+                                        "required": true,
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "email",
+                                        "type": "text",
+                                        "label": null,
+                                        "default": null,
+                                        "required": true,
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "height",
+                                        "type": "number",
+                                        "label": null,
+                                        "default": null,
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "weight",
+                                        "type": "number",
+                                        "label": null,
+                                        "default": null,
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "smoker",
+                                        "type": "text",
+                                        "label": null,
+                                        "default": null,
+                                        "required": true,
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "diabetes",
+                                        "type": "text",
+                                        "label": null,
+                                        "default": null,
+                                        "required": true,
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "cancer",
+                                        "type": "text",
+                                        "label": null,
+                                        "default": null,
+                                        "required": true,
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "decision",
+                                        "type": "text",
+                                        "label": null,
+                                        "default": null,
+                                        "required": false,
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "decisiontype",
+                                        "type": "text",
+                                        "label": null,
+                                        "default": null,
+                                        "required": false,
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "reason",
+                                        "type": "text",
+                                        "label": null,
+                                        "default": null,
+                                        "required": false,
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "birthday",
+                                        "type": "date",
+                                        "label": null
+                                    },
+                                    {
+                                        "name": "gender",
+                                        "type": "text",
+                                        "label": null,
+                                        "default": null,
+                                        "required": true,
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "businessKey",
+                                        "type": "text",
+                                        "label": null,
+                                        "default": null,
+                                        "required": true,
+                                        "multiline": false
+                                    },
+                                    {
+                                        "name": "customerdecision",
+                                        "type": "text",
+                                        "label": null,
+                                        "default": null,
+                                        "required": false,
+                                        "multiline": false
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": 29,
+                            "module": "builtin:BasicRouter",
+                            "version": 1,
+                            "mapper": null,
+                            "metadata": {
+                                "designer": {
+                                    "x": -747,
+                                    "y": -685
+                                }
+                            },
+                            "routes": [
+                                {
+                                    "flow": [
+                                        {
+                                            "id": 36,
+                                            "module": "eledo:Generate",
+                                            "version": 1,
+                                            "parameters": {
+                                                "__IMTCONN__": 2379445
+                                            },
+                                            "filter": {
+                                                "name": "accepted",
+                                                "conditions": [
+                                                    [
+                                                        {
+                                                            "a": "{{1.acceptancecustomer}}",
+                                                            "b": "true",
+                                                            "o": "text:equal"
+                                                        }
+                                                    ]
+                                                ]
+                                            },
+                                            "mapper": {
+                                                "fields": {
+                                                    "cancer": "{{32.cancer}}",
+                                                    "gender": "{{32.gender}}",
+                                                    "height": "{{32.height}}",
+                                                    "smoker": "{{32.smoker}}",
+                                                    "weight": "{{32.weight}}",
+                                                    "diabetes": "{{32.diabetes}}",
+                                                    "lastname": "{{32.lastname}}",
+                                                    "firstname": "{{32.firstname}}",
+                                                    "customerID": "{{27.key}}",
+                                                    "dateofbirth": "{{32.birthday}}",
+                                                    "Contract_customerID": "Contract {{27.key}}"
+                                                },
+                                                "templateId": "60a7606a3bbdc1dee180ef28"
+                                            },
+                                            "metadata": {
+                                                "designer": {
+                                                    "x": -747,
+                                                    "y": -1048
+                                                },
+                                                "restore": {
+                                                    "templateId": {
+                                                        "label": "Contract for health insurance "
+                                                    },
+                                                    "__IMTCONN__": {
+                                                        "label": "My Eledo PDF connection (jerome.wick@students.fhnw.ch)"
+                                                    }
+                                                },
+                                                "parameters": [
+                                                    {
+                                                        "name": "__IMTCONN__",
+                                                        "type": "account",
+                                                        "label": "Connection",
+                                                        "required": true
+                                                    }
+                                                ],
+                                                "expect": [
+                                                    {
+                                                        "name": "templateId",
+                                                        "type": "select",
+                                                        "label": "Template"
+                                                    },
+                                                    {
+                                                        "name": "fields",
+                                                        "spec": [
+                                                            {
+                                                                "name": "firstname",
+                                                                "type": "text"
+                                                            },
+                                                            {
+                                                                "name": "lastname",
+                                                                "type": "text"
+                                                            },
+                                                            {
+                                                                "name": "customerID",
+                                                                "type": "text"
+                                                            },
+                                                            {
+                                                                "name": "gender",
+                                                                "type": "text"
+                                                            },
+                                                            {
+                                                                "name": "dateofbirth",
+                                                                "type": "text"
+                                                            },
+                                                            {
+                                                                "name": "height",
+                                                                "type": "text"
+                                                            },
+                                                            {
+                                                                "name": "weight",
+                                                                "type": "text"
+                                                            },
+                                                            {
+                                                                "name": "smoker",
+                                                                "type": "text"
+                                                            },
+                                                            {
+                                                                "name": "diabetes",
+                                                                "type": "text"
+                                                            },
+                                                            {
+                                                                "name": "cancer",
+                                                                "type": "text"
+                                                            },
+                                                            {
+                                                                "name": "Contract_customerID",
+                                                                "type": "text"
+                                                            }
+                                                        ],
+                                                        "type": "collection",
+                                                        "label": "Custom Fields"
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        {
+                                            "id": 39,
+                                            "module": "builtin:BasicRouter",
+                                            "version": 1,
+                                            "mapper": null,
+                                            "metadata": {
+                                                "designer": {
+                                                    "x": -398,
+                                                    "y": -1061
+                                                }
+                                            },
+                                            "routes": [
+                                                {
+                                                    "flow": [
+                                                        {
+                                                            "id": 30,
+                                                            "module": "google-email:ActionSendEmail",
+                                                            "version": 2,
+                                                            "parameters": {
+                                                                "account": 2400366
+                                                            },
+                                                            "mapper": {
+                                                                "cc": [],
+                                                                "to": [
+                                                                    "{{32.email}}"
+                                                                ],
+                                                                "bcc": [],
+                                                                "from": "",
+                                                                "html": "Dear {{32.firstname}} {{32.lastname}},<br>\n<br>\nPlease find the contract in the attachement.<br>\nIf you agree the contract, please sign it digital and send it back to the following E-Mail-Adress:<br>\n<br>\ninsurance.vitae@gmail.com\n<br><br>\nYours sincerely,<br>\nInsurance Vitae",
+                                                                "subject": "Contract Insurance Vitae",
+                                                                "attachments": [
+                                                                    {
+                                                                        "cid": "",
+                                                                        "data": "{{36.data}}",
+                                                                        "fileName": "{{36.fileName}}"
+                                                                    }
+                                                                ]
+                                                            },
+                                                            "metadata": {
+                                                                "designer": {
+                                                                    "x": 8,
+                                                                    "y": -1428
+                                                                },
+                                                                "restore": {
+                                                                    "cc": {
+                                                                        "mode": "chose",
+                                                                        "items": []
+                                                                    },
+                                                                    "to": {
+                                                                        "mode": "chose",
+                                                                        "items": [
+                                                                            "undefined"
+                                                                        ]
+                                                                    },
+                                                                    "bcc": {
+                                                                        "mode": "chose",
+                                                                        "items": []
+                                                                    },
+                                                                    "account": {
+                                                                        "label": "GMail Insurance Vitae (insurance.vitae@gmail.com)"
+                                                                    },
+                                                                    "attachments": {
+                                                                        "mode": "chose",
+                                                                        "items": [
+                                                                            "undefined"
+                                                                        ]
+                                                                    }
+                                                                },
+                                                                "parameters": [
+                                                                    {
+                                                                        "name": "account",
+                                                                        "type": "account",
+                                                                        "label": "Connection",
+                                                                        "required": true
+                                                                    }
+                                                                ],
+                                                                "expect": [
+                                                                    {
+                                                                        "name": "from",
+                                                                        "type": "text",
+                                                                        "label": "From"
+                                                                    },
+                                                                    {
+                                                                        "name": "to",
+                                                                        "spec": {
+                                                                            "name": " ",
+                                                                            "type": "email",
+                                                                            "label": "Email address",
+                                                                            "required": true
+                                                                        },
+                                                                        "type": "array",
+                                                                        "label": "To",
+                                                                        "labels": {
+                                                                            "add": "Add a recipient",
+                                                                            "edit": "Edit a recipient"
+                                                                        },
+                                                                        "required": true
+                                                                    },
+                                                                    {
+                                                                        "name": "subject",
+                                                                        "type": "text",
+                                                                        "label": "Subject"
+                                                                    },
+                                                                    {
+                                                                        "name": "html",
+                                                                        "type": "text",
+                                                                        "label": "Content"
+                                                                    },
+                                                                    {
+                                                                        "name": "attachments",
+                                                                        "spec": [
+                                                                            {
+                                                                                "name": "fileName",
+                                                                                "type": "filename",
+                                                                                "label": "File name",
+                                                                                "required": true,
+                                                                                "semantic": "file:name"
+                                                                            },
+                                                                            {
+                                                                                "name": "data",
+                                                                                "type": "buffer",
+                                                                                "label": "Data",
+                                                                                "required": true,
+                                                                                "semantic": "file:data"
+                                                                            },
+                                                                            {
+                                                                                "name": "cid",
+                                                                                "type": "text",
+                                                                                "label": "Content-ID"
+                                                                            }
+                                                                        ],
+                                                                        "type": "array",
+                                                                        "label": "Attachments",
+                                                                        "labels": {
+                                                                            "add": "Add an attachment",
+                                                                            "edit": "Edit an attachment"
+                                                                        }
+                                                                    },
+                                                                    {
+                                                                        "name": "cc",
+                                                                        "spec": {
+                                                                            "type": "email",
+                                                                            "label": "Email address"
+                                                                        },
+                                                                        "type": "array",
+                                                                        "label": "Copy recipient",
+                                                                        "labels": {
+                                                                            "add": "Add a copy recipient",
+                                                                            "edit": "Edit a copy recipient"
+                                                                        }
+                                                                    },
+                                                                    {
+                                                                        "name": "bcc",
+                                                                        "spec": {
+                                                                            "type": "email",
+                                                                            "label": "Email address"
+                                                                        },
+                                                                        "type": "array",
+                                                                        "label": "Blind copy recipient",
+                                                                        "labels": {
+                                                                            "add": "Add a blind copy recipient",
+                                                                            "edit": "Edit a blind copy recipient"
+                                                                        }
+                                                                    }
+                                                                ]
+                                                            }
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "flow": [
+                                                        {
+                                                            "id": 40,
+                                                            "module": "google-drive:uploadAFile",
+                                                            "version": 4,
+                                                            "parameters": {
+                                                                "__IMTCONN__": 2400366
+                                                            },
+                                                            "mapper": {
+                                                                "data": "{{36.data}}",
+                                                                "select": "value",
+                                                                "convert": false,
+                                                                "filename": "{{36.fileName}}",
+                                                                "folderId": "/1MuaoNr8KI1nNGW8EqcDTogRkphRH3BXt",
+                                                                "destination": "drive"
+                                                            },
+                                                            "metadata": {
+                                                                "designer": {
+                                                                    "x": 36,
+                                                                    "y": -1065
+                                                                },
+                                                                "restore": {
+                                                                    "select": {
+                                                                        "label": "Select from the list"
+                                                                    },
+                                                                    "folderId": {
+                                                                        "mode": "chose",
+                                                                        "path": [
+                                                                            "Contracts"
+                                                                        ]
+                                                                    },
+                                                                    "__IMTCONN__": {
+                                                                        "label": "GMail Insurance Vitae (insurance.vitae@gmail.com)"
+                                                                    },
+                                                                    "destination": {
+                                                                        "label": "My Drive"
+                                                                    }
+                                                                },
+                                                                "parameters": [
+                                                                    {
+                                                                        "name": "__IMTCONN__",
+                                                                        "type": "account",
+                                                                        "label": "Connection",
+                                                                        "required": true
+                                                                    }
+                                                                ],
+                                                                "expect": [
+                                                                    {
+                                                                        "name": "select",
+                                                                        "type": "select",
+                                                                        "label": "Enter a Folder ID",
+                                                                        "required": true,
+                                                                        "validate": {
+                                                                            "enum": [
+                                                                                "map",
+                                                                                "value"
+                                                                            ]
+                                                                        }
+                                                                    },
+                                                                    {
+                                                                        "name": "title",
+                                                                        "type": "text",
+                                                                        "label": "New File Name"
+                                                                    },
+                                                                    {
+                                                                        "mean": "name",
+                                                                        "name": "filename",
+                                                                        "type": "filename",
+                                                                        "label": "File Name",
+                                                                        "required": true
+                                                                    },
+                                                                    {
+                                                                        "mean": "data",
+                                                                        "name": "data",
+                                                                        "type": "buffer",
+                                                                        "label": "Data",
+                                                                        "required": true
+                                                                    },
+                                                                    {
+                                                                        "name": "convert",
+                                                                        "type": "boolean",
+                                                                        "label": "Convert a File",
+                                                                        "required": true
+                                                                    },
+                                                                    {
+                                                                        "name": "destination",
+                                                                        "type": "select",
+                                                                        "label": "New Drive Location",
+                                                                        "required": true,
+                                                                        "validate": {
+                                                                            "enum": [
+                                                                                "drive",
+                                                                                "share",
+                                                                                "team"
+                                                                            ]
+                                                                        }
+                                                                    },
+                                                                    {
+                                                                        "name": "folderId",
+                                                                        "type": "folder",
+                                                                        "label": "New Folder Location",
+                                                                        "required": true
+                                                                    }
+                                                                ]
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "flow": [
+                                        {
+                                            "id": 31,
+                                            "module": "google-email:ActionSendEmail",
+                                            "version": 2,
+                                            "parameters": {
+                                                "account": 2400366
+                                            },
+                                            "filter": {
+                                                "name": "rejected",
+                                                "conditions": [
+                                                    [
+                                                        {
+                                                            "a": "{{1.acceptancecustomer}}",
+                                                            "b": "false",
+                                                            "o": "text:equal"
+                                                        }
+                                                    ]
+                                                ]
+                                            },
+                                            "mapper": {
+                                                "cc": [],
+                                                "to": [
+                                                    "{{32.email}}"
+                                                ],
+                                                "bcc": [],
+                                                "from": "",
+                                                "html": "Dear {{32.firstname}} {{32.lastname}},<br>\n<br>\nUnfortunately we couldn't meet you expectations for a suplementary insurance of Insurance Vitae. If you you have further questions or need a personal consultation, let us know and we will arrange a personall call as soon as possible <br><br>\n\nYours sincerely,<br>\nInsurance Vitae",
+                                                "subject": "Rejection Offer ",
+                                                "attachments": []
+                                            },
+                                            "metadata": {
+                                                "designer": {
+                                                    "x": -392,
+                                                    "y": -694
+                                                },
+                                                "restore": {
+                                                    "cc": {
+                                                        "mode": "chose",
+                                                        "items": []
+                                                    },
+                                                    "to": {
+                                                        "mode": "chose",
+                                                        "items": [
+                                                            "undefined"
+                                                        ]
+                                                    },
+                                                    "bcc": {
+                                                        "mode": "chose",
+                                                        "items": []
+                                                    },
+                                                    "account": {
+                                                        "label": "GMail Insurance Vitae (insurance.vitae@gmail.com)"
+                                                    },
+                                                    "attachments": {
+                                                        "mode": "chose",
+                                                        "items": []
+                                                    }
+                                                },
+                                                "parameters": [
+                                                    {
+                                                        "name": "account",
+                                                        "type": "account",
+                                                        "label": "Connection",
+                                                        "required": true
+                                                    }
+                                                ],
+                                                "expect": [
+                                                    {
+                                                        "name": "from",
+                                                        "type": "text",
+                                                        "label": "From"
+                                                    },
+                                                    {
+                                                        "name": "to",
+                                                        "spec": {
+                                                            "name": " ",
+                                                            "type": "email",
+                                                            "label": "Email address",
+                                                            "required": true
+                                                        },
+                                                        "type": "array",
+                                                        "label": "To",
+                                                        "labels": {
+                                                            "add": "Add a recipient",
+                                                            "edit": "Edit a recipient"
+                                                        },
+                                                        "required": true
+                                                    },
+                                                    {
+                                                        "name": "subject",
+                                                        "type": "text",
+                                                        "label": "Subject"
+                                                    },
+                                                    {
+                                                        "name": "html",
+                                                        "type": "text",
+                                                        "label": "Content"
+                                                    },
+                                                    {
+                                                        "name": "attachments",
+                                                        "spec": [
+                                                            {
+                                                                "name": "fileName",
+                                                                "type": "filename",
+                                                                "label": "File name",
+                                                                "required": true,
+                                                                "semantic": "file:name"
+                                                            },
+                                                            {
+                                                                "name": "data",
+                                                                "type": "buffer",
+                                                                "label": "Data",
+                                                                "required": true,
+                                                                "semantic": "file:data"
+                                                            },
+                                                            {
+                                                                "name": "cid",
+                                                                "type": "text",
+                                                                "label": "Content-ID"
+                                                            }
+                                                        ],
+                                                        "type": "array",
+                                                        "label": "Attachments",
+                                                        "labels": {
+                                                            "add": "Add an attachment",
+                                                            "edit": "Edit an attachment"
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "cc",
+                                                        "spec": {
+                                                            "type": "email",
+                                                            "label": "Email address"
+                                                        },
+                                                        "type": "array",
+                                                        "label": "Copy recipient",
+                                                        "labels": {
+                                                            "add": "Add a copy recipient",
+                                                            "edit": "Edit a copy recipient"
+                                                        }
+                                                    },
+                                                    {
+                                                        "name": "bcc",
+                                                        "spec": {
+                                                            "type": "email",
+                                                            "label": "Email address"
+                                                        },
+                                                        "type": "array",
+                                                        "label": "Blind copy recipient",
+                                                        "labels": {
+                                                            "add": "Add a blind copy recipient",
+                                                            "edit": "Edit a blind copy recipient"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "metadata": {
+        "version": 1,
+        "scenario": {
+            "roundtrips": 1,
+            "shatter": false,
+            "maxErrors": 3,
+            "autoCommit": false,
+            "sequential": false,
+            "confidential": false,
+            "dataloss": false,
+            "dlq": false
+        },
+        "designer": {
+            "orphans": []
+        },
+        "zone": "eu1.integromat.com"
+    }
+}
