@@ -165,6 +165,9 @@
     </bpmn:exclusiveGateway>
     <bpmn:startEvent id="Event_0x4m378">
       <bpmn:outgoing>Flow_1h8tgx8</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_0yoo0t0">
+        <bpmn:targetRef>DataStoreReference_0ksm1wh</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
       <bpmn:messageEventDefinition id="MessageEventDefinition_0z147sl" messageRef="Message_0620z8v" />
     </bpmn:startEvent>
     <bpmn:serviceTask id="Activity_0t5mzac" name="Send offer to customer">
@@ -457,7 +460,7 @@
       <bpmndi:BPMNShape id="DataStoreReference_0ksm1wh_di" bpmnElement="DataStoreReference_0ksm1wh">
         <dc:Bounds x="390" y="778" width="50" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="330" y="789" width="50" height="27" />
+          <dc:Bounds x="330" y="766" width="50" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_0mtkqyr_di" bpmnElement="Gateway_0mtkqyr" isMarkerVisible="true">
@@ -546,6 +549,11 @@
       <bpmndi:BPMNEdge id="Flow_1bidnl6_di" bpmnElement="Flow_1bidnl6">
         <di:waypoint x="1570" y="360" />
         <di:waypoint x="1570" y="140" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0yoo0t0_di" bpmnElement="DataOutputAssociation_0yoo0t0">
+        <di:waypoint x="245" y="681" />
+        <di:waypoint x="245" y="808" />
+        <di:waypoint x="390" y="808" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
